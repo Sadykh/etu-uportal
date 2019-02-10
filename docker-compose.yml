@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  mariadb:
+    container_name: etu_uportal_db
+    image: sadykh/mariadb-utf8:latest
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env
+    volumes:
+      - ./db:/var/lib/mysql
