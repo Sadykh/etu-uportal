@@ -1,0 +1,35 @@
+package etu.uportal.infrastructure.service;
+
+import etu.uportal.Application;
+import etu.uportal.domain.User;
+import etu.uportal.infrastructure.repository.UserRepository;
+import etu.uportal.web.dto.user.UserDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class UserService {
+
+    private static final Logger log = LoggerFactory.getLogger(Application.class);
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public User registerNewUserAccount(final UserDto dto) {
+        String passwordHash = passwordEncoder.encode(dto.getPassword());
+        final User user = new User(dto.getUsername(), passwordHash, 1);
+        return userRepository.save(user);
+    }
+
+    public Iterable<User> getAll() {
+        return userRepository.findAll();
+    }
+}
