@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class UserService {
 
@@ -25,7 +23,7 @@ public class UserService {
 
     public User registerNewUserAccount(final UserDto dto) {
         String passwordHash = passwordEncoder.encode(dto.getPassword());
-        final User user = new User(dto.getUsername(), passwordHash, 1);
+        final User user = new User(dto.getEmail(), passwordHash, 1);
         return userRepository.save(user);
     }
 

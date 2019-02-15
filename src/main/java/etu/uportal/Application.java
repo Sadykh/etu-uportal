@@ -10,14 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication
 @EnableWebMvc
-public class Application {
+public class Application extends SpringBootServletInitializer {
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);
+
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -29,9 +31,9 @@ public class Application {
     @Bean
     public CommandLineRunner demo() {
         return (args) -> {
-            userService.registerNewUserAccount(new UserDto("Admin", "H123sadasd"));
-            userService.registerNewUserAccount(new UserDto("Tester", "Hsasdasadasd"));
-            userService.registerNewUserAccount(new UserDto("Guest", "H12321sadasd"));
+            userService.registerNewUserAccount(new UserDto("Admin", "H123sadasd", 1));
+            userService.registerNewUserAccount(new UserDto("Tester", "Hsasdasadasd", 2));
+            userService.registerNewUserAccount(new UserDto("Guest", "H12321sadasd", 3));
 
             log.info("get all users:");
             log.info("-------------------------------");
