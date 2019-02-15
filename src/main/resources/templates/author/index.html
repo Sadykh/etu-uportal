@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/mvc">
+<head>
+    <title th:text="${title}"></title>
+    <div th:replace="~{fragments/head}"></div>
+</head>
+<body>
+<nav th:replace="~{fragments/nav}"></nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav th:replace="~{fragments/sidebar}"></nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2" th:text="${title}"></h1>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Фамилия</th>
+                    <th scope="col">Отчество</th>
+                    <th scope="col">Дата регистрация</th>
+                    <th scope="col" class="text-right" width="100">Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Александр</td>
+                    <td>Красильников</td>
+                    <td>Витальевич</td>
+                    <td>10.01.2019</td>
+                    <td class="btn-group">
+                        <a href="#" class="btn btn-sm btn-primary">Отредактировать</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Садых</td>
+                    <td>Садыхов</td>
+                    <td>Нураддинович</td>
+                    <td>11.01.2019</td>
+                    <td class="btn-group">
+                        <a href="#" class="btn btn-sm btn-primary">Отредактировать</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Евгений</td>
+                    <td>Доленко</td>
+                    <td>Святославович</td>
+                    <td>12.01.2019</td>
+                    <td class="btn-group">
+                        <a href="#" class="btn btn-sm btn-primary">Отредактировать</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
+</div>
+<div th:replace="~{fragments/beforeEndBody}"></div>
+</body>
+</html>
