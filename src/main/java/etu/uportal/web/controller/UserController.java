@@ -1,6 +1,7 @@
 package etu.uportal.web.controller;
 
-import etu.uportal.Application;
+import etu.uportal.domain.Role;
+import etu.uportal.domain.User;
 import etu.uportal.infrastructure.service.UserService;
 import etu.uportal.web.dto.user.UserDto;
 import org.slf4j.Logger;
@@ -13,15 +14,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 @Controller
 @RequestMapping("user")
 public class UserController {
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     private UserService userService;
 
     @GetMapping("/")
     public String index(Model model) {
+        Iterable<User> users = userService.getAll();
+        model.addAttribute("roles", Role.getMap());
+        model.addAttribute("users", users);
         model.addAttribute("title", "Список пользователей");
         return "user/index";
     }

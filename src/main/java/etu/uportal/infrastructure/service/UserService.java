@@ -23,7 +23,7 @@ public class UserService {
 
     public User registerNewUserAccount(final UserDto dto) {
         String passwordHash = passwordEncoder.encode(dto.getPassword());
-        final User user = new User(dto.getEmail(), passwordHash, 1);
+        final User user = new User(dto.getEmail(), passwordHash, dto.getRoleId());
         return userRepository.save(user);
     }
 
