@@ -20,13 +20,20 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/")
+    @RequestMapping("/")
     public String index(Model model) {
         Iterable<User> users = userService.getAll();
         model.addAttribute("roles", Role.getMap());
         model.addAttribute("users", users);
         model.addAttribute("title", "Список пользователей");
         return "user/index";
+    }
+
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("title", "Вход");
+        return "user/login";
     }
 
 

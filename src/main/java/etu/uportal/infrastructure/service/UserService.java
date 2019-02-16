@@ -30,4 +30,9 @@ public class UserService {
     public Iterable<User> getAll() {
         return userRepository.findAll();
     }
+
+
+    public User findByEmail(String email) {
+        return this.userRepository.findByEmail(email);
+    }
 }
