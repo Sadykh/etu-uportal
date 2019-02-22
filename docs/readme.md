@@ -6,6 +6,7 @@
 Среда разработки
 ---
 * [Настройка IntelliJ IDEA from JetBrains](setting_idea.md)
+* [Установка git, docker, java](install_requiremets.md)
 
 Другое
 ---
