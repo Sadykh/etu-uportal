@@ -26,32 +26,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Александр</td>
-                    <td>Красильников</td>
-                    <td>Витальевич</td>
+                <tr th:each="author, rowStat: ${authors}">
+                    <th scope="row" th:text="${rowStat.count}">count</th>
+                    <td th:text="${author.firstName}">firstName</td>
+                    <td th:text="${author.lastName}">lastName</td>
+                    <td th:text="${author.middleName}">middleName</td>
                     <td>10.01.2019</td>
-                    <td class="btn-group">
-                        <a href="#" class="btn btn-sm btn-primary">Отредактировать</a>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Садых</td>
-                    <td>Садыхов</td>
-                    <td>Нураддинович</td>
-                    <td>11.01.2019</td>
-                    <td class="btn-group">
-                        <a href="#" class="btn btn-sm btn-primary">Отредактировать</a>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Евгений</td>
-                    <td>Доленко</td>
-                    <td>Святославович</td>
-                    <td>12.01.2019</td>
                     <td class="btn-group">
                         <a href="#" class="btn btn-sm btn-primary">Отредактировать</a>
                     </td>

@@ -1,0 +1,9 @@
+<div class="form-group" th:fragment="formField (field, label, type, required)">
+    <label th:for="${field}" th:text="${label}"></label>
+    <input th:id="${field}" class="form-control" th:type="${type}" th:field="*{__${field}__}"
+           th:classappend="${#fields.hasErrors(field)} ? is-invalid"
+           th:required="${required}" >
+    <p class="invalid-feedback"
+       th:if="${#fields.hasErrors(field)}"
+       th:text="${#fields.errors(field).get(0)}">
+</div>

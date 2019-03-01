@@ -17,56 +17,44 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <form action="/author/create" method="post" th:object="${author}">
+                    <form action="/author/create" method="post" th:object="${authorDto}">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group ">
-                                    <label for="firstName">Имя</label>
-                                    <input id="firstName" class="form-control" required="required" name="text"
-                                           th:field="*{firstName}"/>
-                                </div>
+                                <div th:replace="~{fragments/form/_inputText.html :: formField(
+                                    field = 'firstName', label = 'Имя', type='text', required = 'true'
+                                )}"></div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group ">
-                                    <label for="firstNameEn">Имя на английском</label>
-                                    <input id="firstNameEn" class="form-control" required="required" name="text"
-                                           th:field="*{firstNameEn}"/>
-                                </div>
+                                <div th:replace="~{fragments/form/_inputText.html :: formField(
+                                    field = 'firstNameEn', label = 'Имя на английском', type='text', required = 'true'
+                                )}"></div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group ">
-                                    <label for="lastName">Фамилия</label>
-                                    <input id="lastName" class="form-control" required="required" name="text"
-                                           th:field="*{lastName}"/>
-                                </div>
+                                <div th:replace="~{fragments/form/_inputText.html :: formField(
+                                    field = 'lastName', label = 'Фамилия', type='text', required = 'true'
+                                )}"></div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group ">
-                                    <label for="lastNameEn">Фамилия на английском</label>
-                                    <input id="lastNameEn" class="form-control" required="required" name="text"
-                                           th:field="*{lastNameEn}"/>
-                                </div>
+                                <div th:replace="~{fragments/form/_inputText.html :: formField(
+                                    field = 'lastNameEn', label = 'Фамилия на английском', type='text', required = 'true'
+                                )}"></div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group ">
-                                    <label for="middleName">Отчество</label>
-                                    <input id="middleName" class="form-control" required="required" name="text"
-                                           th:field="*{middleName}"/>
-                                </div>
+                                <div th:replace="~{fragments/form/_inputText.html :: formField(
+                                    field = 'middleName', label = 'Отчество', type='text', required = 'true'
+                                )}"></div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group ">
-                                    <label for="middleNameEn">Отчество на английском</label>
-                                    <input id="middleNameEn" class="form-control" required="required" name="text"
-                                           th:field="*{middleNameEn}"/>
-                                </div>
+                                <div th:replace="~{fragments/form/_inputText.html :: formField(
+                                    field = 'middleNameEn', label = 'Отчество на английском', type='text', required = 'true'
+                                )}"></div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary" disabled>Отправить</button>
+                        <button type="submit" class="btn btn-primary">Отправить</button>
                     </form>
                 </div>
             </div>
