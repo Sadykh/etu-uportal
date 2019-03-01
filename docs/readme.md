@@ -7,6 +7,7 @@
 ---
 * [Настройка IntelliJ IDEA from JetBrains](setting_idea.md)
 * [Установка git, docker, java](install_requiremets.md)
+* [Импорт проекта в IntelliJ IDEA](import_to_idea.md)
 
 Другое
 ---
