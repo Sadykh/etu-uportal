@@ -3,10 +3,12 @@ package etu.uportal.web.controller;
 import etu.uportal.domain.Author;
 import etu.uportal.domain.Role;
 import etu.uportal.infrastructure.service.AuthorService;
+import etu.uportal.spring.OffsetLimitPageable;
 import etu.uportal.web.dto.author.AuthorDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,9 +31,10 @@ public class AuthorController {
 
     @RequestMapping("/")
     public String index(Model model) {
-        Iterable<Author> authors = authorService.getAll();
+        OffsetLimitPageable pageRequest = new OffsetLimitPageable();
+        Page<Author> authors = authorService.getAll(pageRequest);
         model.addAttribute("roles", Role.getMap());
-        model.addAttribute("authors", authors);
+        model.addAttribute("authors", authors.getContent());
         model.addAttribute("title", "Список авторов");
         return "author/index";
     }

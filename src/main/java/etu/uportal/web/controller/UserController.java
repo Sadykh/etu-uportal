@@ -3,8 +3,10 @@ package etu.uportal.web.controller;
 import etu.uportal.domain.Role;
 import etu.uportal.domain.User;
 import etu.uportal.infrastructure.service.UserService;
+import etu.uportal.spring.OffsetLimitPageable;
 import etu.uportal.web.dto.user.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,9 +24,10 @@ public class UserController {
 
     @RequestMapping("/")
     public String index(Model model) {
-        Iterable<User> users = userService.getAll();
+        OffsetLimitPageable pageRequest = new OffsetLimitPageable();
+        Page<User> users = userService.getAll(pageRequest);
         model.addAttribute("roles", Role.getMap());
-        model.addAttribute("users", users);
+        model.addAttribute("users", users.getContent());
         model.addAttribute("title", "Список пользователей");
         return "user/index";
     }

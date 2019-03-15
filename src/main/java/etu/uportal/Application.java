@@ -37,9 +37,9 @@ public class Application extends SpringBootServletInitializer {
 
             log.info("get all users:");
             log.info("-------------------------------");
-            for (User user : userService.getAll()) {
-                log.info(user.toString());
-            }
+//            for (User user : userService.getAll()) {
+//                log.info(user.toString());
+//            }
 
             log.info("");
         };
