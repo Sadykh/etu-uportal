@@ -1,8 +1,7 @@
 package etu.uportal;
 
-import etu.uportal.domain.User;
 import etu.uportal.infrastructure.service.UserService;
-import etu.uportal.web.dto.user.UserDto;
+import etu.uportal.web.dto.user.UserCreateDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,9 +30,9 @@ public class Application extends SpringBootServletInitializer {
     @Bean
     public CommandLineRunner demo() {
         return (args) -> {
-            userService.registerNewUserAccount(new UserDto("admin@etu.ru", "H123sadasd", 1));
-            userService.registerNewUserAccount(new UserDto("tester@etu.ru", "Hsasdasadasd", 2));
-            userService.registerNewUserAccount(new UserDto("guest@etu.ru", "H12321sadasd", 3));
+            userService.registerNewUserAccount(new UserCreateDto("admin@etu.ru", "H123sadasd", 1));
+            userService.registerNewUserAccount(new UserCreateDto("tester@etu.ru", "Hsasdasadasd", 2));
+            userService.registerNewUserAccount(new UserCreateDto("guest@etu.ru", "H12321sadasd", 3));
 
             log.info("get all users:");
             log.info("-------------------------------");

@@ -4,7 +4,7 @@ import etu.uportal.domain.Role;
 import etu.uportal.domain.User;
 import etu.uportal.infrastructure.service.UserService;
 import etu.uportal.spring.OffsetLimitPageable;
-import etu.uportal.web.dto.user.UserDto;
+import etu.uportal.web.dto.user.UserCreateDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -41,18 +41,18 @@ public class UserController {
 
 
     @GetMapping("/create")
-    public String getCreate(UserDto userDto, Model model) {
+    public String getCreate(UserCreateDto userCreateDto, Model model) {
         model.addAttribute("title", "Регистрация");
         return "user/create";
     }
 
     @PostMapping("/create")
-    public String postCreate(@ModelAttribute @Valid UserDto userDto, BindingResult bindingResult, Model model) {
+    public String postCreate(@ModelAttribute @Valid UserCreateDto userCreateDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Регистрация");
             return "user/create";
         }
-        userService.registerNewUserAccount(userDto);
+        userService.registerNewUserAccount(userCreateDto);
         return "redirect:/user/";
     }
 }

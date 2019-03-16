@@ -4,7 +4,7 @@ import etu.uportal.Application;
 import etu.uportal.domain.User;
 import etu.uportal.infrastructure.repository.UserRepository;
 import etu.uportal.spring.OffsetLimitPageable;
-import etu.uportal.web.dto.user.UserDto;
+import etu.uportal.web.dto.user.UserCreateDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +23,11 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public User registerNewUserAccount(final UserDto dto) {
+    public UserCreateDto registerNewUserAccount(final UserCreateDto dto) {
         String passwordHash = passwordEncoder.encode(dto.getPassword());
         final User user = new User(dto.getEmail(), passwordHash, dto.getRoleId());
-        return userRepository.save(user);
+        userRepository.save(user);
+        return new UserCreateDto(user.getId(), user.getEmail(), "", user.getRoleId());
     }
 
     public Page<User> getAll(OffsetLimitPageable pageRequest) {
