@@ -4,7 +4,7 @@ import etu.uportal.domain.Author;
 import etu.uportal.domain.Role;
 import etu.uportal.infrastructure.service.AuthorService;
 import etu.uportal.spring.OffsetLimitPageable;
-import etu.uportal.web.dto.author.AuthorDto;
+import etu.uportal.web.dto.author.AuthorCreateDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,19 +40,19 @@ public class AuthorController {
     }
 
     @GetMapping("/create")
-    public String getCreate(AuthorDto authorDto, Model model) {
+    public String getCreate(AuthorCreateDto authorCreateDto, Model model) {
         model.addAttribute("title", "Добавление автора");
         return "author/create";
     }
 
 
     @PostMapping("/create")
-    public String postCreate(@ModelAttribute @Valid AuthorDto authorDto, BindingResult bindingResult, Model model) {
+    public String postCreate(@ModelAttribute @Valid AuthorCreateDto authorCreateDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Добавление автора");
             return "author/create";
         }
-        authorService.create(authorDto);
+        authorService.create(authorCreateDto);
         return "redirect:/author/";
     }
 

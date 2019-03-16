@@ -3,14 +3,15 @@ package etu.uportal.rest;
 import etu.uportal.domain.Author;
 import etu.uportal.infrastructure.service.AuthorService;
 import etu.uportal.spring.OffsetLimitPageable;
+import etu.uportal.web.dto.author.AuthorCreateDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @RestController
@@ -26,5 +27,12 @@ public class AuthorRestController {
     @GetMapping("/")
     public Page<Author> getUser(OffsetLimitPageable pageRequest) {
         return authorService.getAll(pageRequest);
+    }
+
+    @ApiOperation(value = "Добавить нового автора")
+    @PreAuthorize("permitAll()")
+    @PostMapping("/")
+    public AuthorCreateDto addAuthor(@RequestBody @Valid AuthorCreateDto authorCreateDto) {
+        return authorService.create(authorCreateDto);
     }
 }
