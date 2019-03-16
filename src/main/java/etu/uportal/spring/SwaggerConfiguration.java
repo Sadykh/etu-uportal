@@ -72,6 +72,7 @@ public class SwaggerConfiguration {
     @Bean
     public Docket petApi() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .forCodeGeneration(true)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("etu.uportal.rest"))
                 .build()

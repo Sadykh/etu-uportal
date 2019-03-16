@@ -1,5 +1,6 @@
 package etu.uportal.domain;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,29 +14,39 @@ import java.time.Instant;
 @NoArgsConstructor
 public class Author {
 
+    @ApiModelProperty(value = "ID сущности, генерируется автоматические при создании", example = "100500")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(nullable = false)
+    @ApiModelProperty(value = "Имя автора на русском языке", example = "Василий")
     private String firstName;
 
     @Column(nullable = false)
+    @ApiModelProperty(value = "Фамилия автора на русском языке", example = "Пупкин")
     private String lastName;
 
     @Column(nullable = false)
+    @ApiModelProperty(value = "Отчество автора на русском языке", example = "Пупкинович")
     private String middleName;
 
     @Column(nullable = false)
+    @ApiModelProperty(value = "Имя автора на английском языке", example = "Vasiliy")
     private String firstNameEn;
 
     @Column(nullable = false)
+    @ApiModelProperty(value = "Фамилия автора на английском языке", example = "Pupkin")
     private String lastNameEn;
 
     @Column(nullable = false)
+    @ApiModelProperty(value = "Отчество автора на английском языке", example = "Pupkinovich")
     private String middleNameEn;
 
+    @ApiModelProperty(value = "unixtime времени создания сущности", example = "1552714294")
     private long createdAt;
+
+    @ApiModelProperty(value = "unixtime времени изменения сущности", example = "1552714294")
     private long updatedAt;
 
     public Author(String firstName, String lastName, String middleName, String firstNameEn, String lastNameEn, String middleNameEn) {

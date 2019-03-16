@@ -13,7 +13,7 @@ public class OffsetLimitPageable extends PageRequest {
     @ApiParam(hidden = true)
     private int pageSize;
 
-    @ApiParam(defaultValue = "10", example = "20")
+    @ApiParam(value = "Максимальное количество элементов", defaultValue = "10", example = "20")
     private int limit;
 
     @ApiParam(hidden = true)
@@ -35,6 +35,7 @@ public class OffsetLimitPageable extends PageRequest {
         return pageSize;
     }
 
+    @ApiParam(value = "Количество элементов, которое надо пропустить", defaultValue = "0", example = "10")
     @Override
     public long getOffset() {
         return this.offset;
