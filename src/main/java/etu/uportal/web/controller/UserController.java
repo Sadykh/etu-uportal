@@ -23,8 +23,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/")
-    public String index(Model model) {
-        OffsetLimitPageable pageRequest = new OffsetLimitPageable();
+    public String index(Model model, OffsetLimitPageable pageRequest) {
         Page<User> users = userService.getAll(pageRequest);
         model.addAttribute("roles", Role.getMap());
         model.addAttribute("users", users.getContent());

@@ -30,8 +30,7 @@ public class AuthorController {
 
 
     @RequestMapping("/")
-    public String index(Model model) {
-        OffsetLimitPageable pageRequest = new OffsetLimitPageable();
+    public String index(Model model, OffsetLimitPageable pageRequest) {
         Page<Author> authors = authorService.getAll(pageRequest);
         model.addAttribute("roles", Role.getMap());
         model.addAttribute("authors", authors.getContent());
