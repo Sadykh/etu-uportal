@@ -26,9 +26,6 @@ public class OffsetLimitPageable extends PageRequest {
         this.offset = offset;
     }
 
-    public OffsetLimitPageable() {
-        super(0, 10);
-    }
 
 
     public int getLimit() {
