@@ -81,7 +81,8 @@ public class SwaggerConfiguration {
                 .consumes(Collections.singleton("application/json"))
                 .securitySchemes(Collections.singletonList(apiKey()))
                 .tags(new Tag("User", "Все что связано с пользователями"))
-                .tags(new Tag("Author", "Все что связано с авторами"));
+                .tags(new Tag("Author", "Все что связано с авторами"))
+                .tags(new Tag("Publication", "Все что связано с публикациями"));
     }
 
 }
