@@ -60,4 +60,22 @@ public class UserController {
         userService.registerNewUserAccount(userCreateDto);
         return "redirect:/user/";
     }
+
+    @GetMapping("/update/{id}")
+    public String getUpdate(Model model, @PathVariable Long id) {
+        User user = userService.getOneById(id);
+        model.addAttribute("title", "Обновление пользователя: " + user.getEmail());
+        model.addAttribute("userCreateDto", new UserCreateDto(user.getId(), user.getEmail(), "", user.getRoleId()));
+        return "user/create";
+    }
+
+    @PostMapping("/update/{id}")
+    public String postUpdate(@PathVariable Long id, @ModelAttribute @Valid UserCreateDto userCreateDto, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("title", "Обновление пользователя: " + userCreateDto.getEmail());
+            return "user/create";
+        }
+        userService.updateById(id, userCreateDto);
+        return "redirect:/user/";
+    }
 }

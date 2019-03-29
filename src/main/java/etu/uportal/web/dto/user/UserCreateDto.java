@@ -1,5 +1,6 @@
 package etu.uportal.web.dto.user;
 
+import etu.uportal.infrastructure.validation.user.PasswordConstraintValidator;
 import etu.uportal.infrastructure.validation.user.ValidPassword;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -26,8 +27,6 @@ public class UserCreateDto {
     private String email;
 
     @ApiModelProperty(value = "Пароль пользователя, нужен сложный пароль. При успешной регистрации это поле придет пустым", example = "QxoI7l21kLHNOky4tyvT", required = true)
-    @NotNull
-    @NotEmpty
     @ValidPassword
     private String password;
 
@@ -41,7 +40,7 @@ public class UserCreateDto {
         this.roleId = roleId;
     }
 
-    public UserCreateDto(long id, @NotNull @NotEmpty @Email String email, @NotNull @NotEmpty @Size(min = 6) String password, @NotNull int roleId) {
+    public UserCreateDto(long id, @NotNull @NotEmpty @Email String email, @Size(min = 6) String password, @NotNull int roleId) {
         this.id = id;
         this.email = email;
         this.password = password;

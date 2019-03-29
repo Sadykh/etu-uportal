@@ -28,6 +28,9 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
 
     @Override
     public boolean isValid(final String password, final ConstraintValidatorContext context) {
+        if (password.isEmpty()) {
+            return true;
+        }
         // @formatter:off
         final PasswordValidator validator = new PasswordValidator(Arrays.asList(
                 new LengthRule(8, 30),

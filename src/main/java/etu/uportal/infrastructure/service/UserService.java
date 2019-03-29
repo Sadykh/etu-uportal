@@ -27,11 +27,29 @@ public class UserService {
         String passwordHash = passwordEncoder.encode(dto.getPassword());
         final User user = new User(dto.getEmail(), passwordHash, dto.getRoleId());
         userRepository.save(user);
-        return new UserCreateDto(user.getId(), user.getEmail(), "", user.getRoleId());
+        dto.setPassword(null);
+        return dto;
+    }
+
+    public UserCreateDto updateById(final long id, final UserCreateDto dto) {
+        final User user = userRepository.getOne(id);
+        user.setEmail(dto.getEmail());
+        user.setRoleId(dto.getRoleId());
+        if (dto.getPassword().length() > 1) {
+            String passwordHash = passwordEncoder.encode(dto.getPassword());
+            user.setPasswordHash(passwordHash);
+        }
+        userRepository.save(user);
+        dto.setPassword(null);
+        return dto;
     }
 
     public Page<User> getAll(PageRequest pageRequest) {
         return userRepository.findAll(pageRequest);
+    }
+
+    public User getOneById(long id) {
+        return userRepository.getOne(id);
     }
 
 

@@ -27,13 +27,13 @@
                 </thead>
                 <tbody>
                 <tr th:each="author, rowStat: ${authors.content}">
-                    <th scope="row" th:text="${authors.id}">count</th>
+                    <th scope="row" th:text="${author.id}">count</th>
                     <td th:text="${author.firstName}">firstName</td>
                     <td th:text="${author.lastName}">lastName</td>
                     <td th:text="${author.middleName}">middleName</td>
                     <td>10.01.2019</td>
                     <td class="btn-group">
-                        <a href="#" class="btn btn-sm btn-primary">Отредактировать</a>
+                        <a href="/author/update/${author.id}" class="btn btn-sm btn-primary">Отредактировать</a>
                     </td>
                 </tr>
                 </tbody>
