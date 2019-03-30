@@ -26,8 +26,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="author, rowStat: ${authors}">
-                    <th scope="row" th:text="${rowStat.count}">count</th>
+                <tr th:each="author, rowStat: ${authors.content}">
+                    <th scope="row" th:text="${authors.id}">count</th>
                     <td th:text="${author.firstName}">firstName</td>
                     <td th:text="${author.lastName}">lastName</td>
                     <td th:text="${author.middleName}">middleName</td>
@@ -38,6 +38,7 @@
                 </tr>
                 </tbody>
             </table>
+            <div th:replace="~{fragments/pagination :: dataBind(totalPages = ${authors.totalPages}, currentNumber = ${authors.number}, baseUrl = '/author/')}"></div>
         </main>
     </div>
 </div>

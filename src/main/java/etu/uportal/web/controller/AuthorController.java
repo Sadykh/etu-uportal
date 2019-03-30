@@ -1,23 +1,20 @@
 package etu.uportal.web.controller;
 
 import etu.uportal.domain.Author;
-import etu.uportal.domain.Role;
 import etu.uportal.infrastructure.service.AuthorService;
-import etu.uportal.spring.OffsetLimitPageable;
 import etu.uportal.web.dto.author.AuthorCreateDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("author")
@@ -30,10 +27,13 @@ public class AuthorController {
 
 
     @RequestMapping("/")
-    public String index(Model model, OffsetLimitPageable pageRequest) {
-        Page<Author> authors = authorService.getAll(pageRequest);
-        model.addAttribute("roles", Role.getMap());
-        model.addAttribute("authors", authors.getContent());
+    public String index(Model model,
+                        @RequestParam("page") Optional<Integer> page,
+                        @RequestParam("size") Optional<Integer> size) {
+        final int currentPage = page.orElse(1);
+        final int pageSize = size.orElse(2);
+        Page<Author> authors = authorService.getAll(PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("authors", authors);
         model.addAttribute("title", "Список авторов");
         return "author/index";
     }

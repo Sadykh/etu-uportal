@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,7 +29,7 @@ public class AuthorService {
                 author.getFirstNameEn(), author.getLastNameEn(), author.getMiddleNameEn());
     }
 
-    public Page<Author> getAll(OffsetLimitPageable pageRequest) {
+    public Page<Author> getAll(PageRequest pageRequest) {
         return authorRepository.findAll(pageRequest);
     }
 
