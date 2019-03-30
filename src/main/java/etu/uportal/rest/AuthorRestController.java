@@ -35,4 +35,11 @@ public class AuthorRestController {
     public AuthorCreateDto addAuthor(@RequestBody @Valid AuthorCreateDto authorCreateDto) {
         return authorService.create(authorCreateDto);
     }
+
+    @ApiOperation(value = "Обновление автора")
+    @PreAuthorize("permitAll()")
+    @PostMapping("/{id}")
+    public AuthorCreateDto updateAuthor(@PathVariable Long id, @RequestBody @Valid AuthorCreateDto authorCreateDto) {
+        return authorService.updateById(id, authorCreateDto);
+    }
 }

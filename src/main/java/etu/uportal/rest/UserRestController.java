@@ -33,4 +33,11 @@ public class UserRestController {
     public UserCreateDto addUser(@RequestBody @Valid UserCreateDto userCreateDto) {
         return userService.registerNewUserAccount(userCreateDto);
     }
+
+    @ApiOperation(value = "Обновление пользователя")
+    @PreAuthorize("permitAll()")
+    @PostMapping("/{id}")
+    public UserCreateDto updateUser(@PathVariable Long id, @RequestBody @Valid UserCreateDto userCreateDto) {
+        return userService.updateById(id, userCreateDto);
+    }
 }
