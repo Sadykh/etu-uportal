@@ -25,11 +25,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="user: ${users}">
-                    <td th:text="${user.id}"/>
-                    </td>
-                    <td th:text="${user.email}"/>
-                    </td>
+                <tr th:each="user: ${users.content}">
+                    <td th:text="${user.id}"/></td>
+                    <td th:text="${user.email}"/></td>
                     <td th:text="${roles[user.roleId]}"/>
                     </td>
                     <td>10.01.2019</td>
@@ -41,7 +39,7 @@
                 </tbody>
             </table>
 
-
+            <div th:replace="~{fragments/pagination :: dataBind(totalPages = ${users.totalPages}, currentNumber = ${users.number}, baseUrl = '/user/')}"></div>
         </main>
     </div>
 </div>
