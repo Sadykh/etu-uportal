@@ -1,5 +1,5 @@
 <nav th:fragment="dataBind (totalPages, currentNumber, baseUrl)">
-    <ul class="pagination">
+    <ul class="pagination" th:if="${totalPages} > 1">
         <li class="page-item"
             th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
             th:classappend="${pageNumber == (currentNumber + 1)} ? active">
