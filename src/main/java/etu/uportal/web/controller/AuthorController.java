@@ -55,4 +55,24 @@ public class AuthorController {
         return "redirect:/author/";
     }
 
+    @GetMapping("/update/{id}")
+    public String getUpdate(Model model, @PathVariable Long id) {
+        Author author = authorService.getOneById(id);
+        model.addAttribute("title", "Обновление автора: " + author.getLastName());
+        model.addAttribute("authorCreateDto", new AuthorCreateDto(author.getId(), author.getFirstName(),
+                author.getLastName(), author.getMiddleName(), author.getFirstNameEn(), author.getLastNameEn(),
+                author.getMiddleNameEn()));
+        return "author/create";
+    }
+
+    @PostMapping("/update/{id}")
+    public String postUpdate(@PathVariable Long id, @ModelAttribute @Valid AuthorCreateDto authorCreateDto, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("title", "Обновление автора: " + authorCreateDto.getLastName());
+            return "author/create";
+        }
+        authorService.updateById(id, authorCreateDto);
+        return "redirect:/author/";
+    }
+
 }

@@ -17,7 +17,7 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <form action="/author/create" method="post" th:object="${authorCreateDto}">
+                    <form method="post" th:object="${authorCreateDto}">
                         <div class="row">
                             <div class="col-md-6">
                                 <div th:replace="~{fragments/form/_inputText.html :: formField(

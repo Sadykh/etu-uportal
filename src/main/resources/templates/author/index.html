@@ -33,7 +33,7 @@
                     <td th:text="${author.middleName}">middleName</td>
                     <td>10.01.2019</td>
                     <td class="btn-group">
-                        <a href="/author/update/${author.id}" class="btn btn-sm btn-primary">Отредактировать</a>
+                        <a th:href="@{/author/update/{id}(id=${author.id})}" href="#" class="btn btn-sm btn-primary">Отредактировать</a>
                     </td>
                 </tr>
                 </tbody>
