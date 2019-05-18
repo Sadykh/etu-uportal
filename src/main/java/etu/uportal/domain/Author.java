@@ -1,5 +1,6 @@
 package etu.uportal.domain;
 
+import etu.uportal.domain.publication.PublicationAuthor;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -48,6 +51,9 @@ public class Author {
 
     @ApiModelProperty(value = "unixtime времени изменения сущности", example = "1552714294")
     private long updatedAt;
+
+    @OneToMany(mappedBy = "id.author", cascade = CascadeType.ALL)
+    private Set<PublicationAuthor> authorPublications = new HashSet<>(0);
 
     public Author(String firstName, String lastName, String middleName, String firstNameEn, String lastNameEn, String middleNameEn) {
         this.firstName = firstName;

@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 
 @Getter
 @Setter
@@ -27,16 +28,25 @@ public class PublicationCreateDto {
     private String introText;
 
     @NotNull
-    @NotEmpty
     @ApiModelProperty(value = "unixtime даты публикации", example = "1552714294", required = true)
     private long publishedAt;
 
-    public PublicationCreateDto(@NotNull @NotEmpty String title, @NotNull @NotEmpty String introText, @NotNull @NotEmpty long publishedAt) {
+    private ArrayList<Integer> authorListId = new ArrayList<>();
+
+    public PublicationCreateDto(@NotNull @NotEmpty String title, @NotNull @NotEmpty String introText) {
         this.title = title;
         this.introText = introText;
-        this.publishedAt = publishedAt;
+        this.publishedAt = 100500L;
     }
 
+
+    //    public PublicationCreateDto(@NotNull @NotEmpty String title, @NotNull @NotEmpty String introText, @NotNull @NotEmpty long publishedAt) {
+//        this.title = title;
+//        this.introText = introText;
+//        this.publishedAt = publishedAt;
+//    }
+//
+//
     public PublicationCreateDto(long id, @NotNull @NotEmpty String title, @NotNull @NotEmpty String introText, @NotNull @NotEmpty long publishedAt) {
         this.id = id;
         this.title = title;

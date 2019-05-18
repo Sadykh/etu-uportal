@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/mvc">
+<head>
+    <title th:text="${title}"></title>
+    <div th:replace="~{fragments/head}"></div>
+</head>
+<body>
+<nav th:replace="~{fragments/nav}"></nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav th:replace="~{fragments/sidebar}"></nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2" th:text="${title}"></h1>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <form method="post" th:object="${publicationCreateDto}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div th:replace="~{fragments/form/_inputText.html :: formField(
+                                    field = 'title', label = 'Название', type='text', required = 'true'
+                                )}"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div th:replace="~{fragments/form/_inputText.html :: formField(
+                                    field = 'introText', label = 'Описание', type='text', required = 'true'
+                                )}"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="authorList">Общий список авторов</label>
+                                <select id="authorList" name="authorList" class="custom-select">
+                                    <option disabled>Выберите автора из списка</option>
+                                    <option th:each="author: ${authorList}" th:value="${author.id}"
+                                            th:attr="data-firstname=${author.firstName}, data-lastname=${author.lastName}, data-middlename=${author.middleName}"
+                                            th:text="${author.firstName + ' ' + author.lastName}"></option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-6">
+                                <a href="#" id="publication_author_add" class="btn btn-primary"
+                                   style="margin: 28px 0 0 0; display: block;">Добавить</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class='table-sortable table table-striped table-bordered sorted_table'
+                                       id="author_table">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>ID</th>
+                                        <th>Фамилия</th>
+                                        <th>Имя</th>
+                                        <th>Отчество</th>
+                                        <th style="width: 100px;">Действие</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary">Отправить</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<div th:replace="~{fragments/beforeEndBody}"></div>
+<script>
+    $(document).ready(function () {
+        $(document).on('click', '#publication_author_add', function (e) {
+            e.preventDefault();
+            const author = $('#authorList option:selected');
+            const trLength = $('#author_table tbody tr').length;
+            $('#author_table tbody').append('<tr><td><i class="fas fa-arrows-alt"></i></td><td><input type="hidden" class="authorListId" name="authorListId[' + trLength + ']" value="' + author.val()
+                + '">' + '<span class="number">' + (trLength + 1) + '</span></td><td>' + author.data('firstname') + '</td><td>' +
+                author.data('lastname') + '</td><td>' + author.data('middlename') + '</td>' +
+                '<td><a href="#" class="btn btn-sm btn-danger" id="author_table_remove">Удалить</a></td>' +
+                '</tr>');
+        });
+        $(document).on('click', '#author_table_remove', function (e) {
+            e.preventDefault();
+            const item = $(this).parent().parent();
+            item.remove();
+            calculateAuthorListId();
+        });
+
+        function calculateAuthorListId() {
+            $('#author_table tbody tr').each(function (index, value) {
+                console.log(index);
+                console.log(value);
+                console.log($(this));
+                $(this).find('td input').attr('name', 'authorListId[' + index + ']');
+                $(this).find('span.number').html(index + 1);
+            });
+        }
+
+        function initSortable() {
+            $('#author_table').sortable({
+                containerSelector: 'table',
+                itemPath: '> tbody',
+                itemSelector: 'tr',
+                placeholder: '<tr class="placeholder"/>',
+                onDrop: function ($item, container, _super) {
+                    calculateAuthorListId();
+                    _super($item, container);
+                }
+            });
+        }
+
+        initSortable();
+    });
+
+
+</script>
+<style>
+    .dragged {
+        position: absolute;
+        top: 0;
+        opacity: 0.5;
+        z-index: 2000;
+    }
+
+    #author_table {
+        margin: 20px 0;
+    }
+    #author_table tbody tr {
+        cursor: move;
+    }
+
+    #author_table tr.placeholder {
+        display: block;
+        background: red;
+        position: relative;
+        margin: 0;
+        padding: 0;
+        border: none;
+    }
+
+    #author_table tr.placeholder:before {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: 5px solid transparent;
+        border-left-color: red;
+        margin-top: -5px;
+        left: -5px;
+        border-right: none;
+    }
+</style>
+</body>
+</html>

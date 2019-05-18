@@ -1,6 +1,6 @@
 package etu.uportal.rest;
 
-import etu.uportal.domain.Publication;
+import etu.uportal.domain.publication.Publication;
 import etu.uportal.infrastructure.service.PublicationService;
 import etu.uportal.spring.OffsetLimitPageable;
 import etu.uportal.web.dto.publication.PublicationCreateDto;

@@ -1,4 +1,4 @@
-package etu.uportal.domain;
+package etu.uportal.domain.publication;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -36,6 +37,9 @@ public class Publication {
 
     @ApiModelProperty(value = "unixtime времени изменения сущности", example = "1552714294")
     private long updatedAt;
+
+    @OneToMany(mappedBy = "id.publication", cascade = CascadeType.ALL)
+    private Set<PublicationAuthor> publicationAuthors;
 
     @PrePersist
     protected void onCreate() {
