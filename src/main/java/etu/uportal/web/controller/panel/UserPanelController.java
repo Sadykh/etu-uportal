@@ -1,4 +1,4 @@
-package etu.uportal.web.controller;
+package etu.uportal.web.controller.panel;
 
 import etu.uportal.domain.Role;
 import etu.uportal.domain.User;
@@ -17,8 +17,8 @@ import java.util.Optional;
 
 
 @Controller
-@RequestMapping("user")
-public class UserController {
+@RequestMapping("/panel/user")
+public class UserPanelController {
 
     @Autowired
     private UserService userService;
@@ -34,31 +34,31 @@ public class UserController {
         model.addAttribute("roles", Role.getMap());
         model.addAttribute("users", users);
         model.addAttribute("title", "Список пользователей");
-        return "user/index";
+        return "panel/user/index";
     }
 
 
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("title", "Вход");
-        return "user/login";
+        return "panel/user/login";
     }
 
 
     @GetMapping("/create")
     public String getCreate(UserCreateDto userCreateDto, Model model) {
         model.addAttribute("title", "Регистрация");
-        return "user/create";
+        return "panel/user/create";
     }
 
     @PostMapping("/create")
     public String postCreate(@ModelAttribute @Valid UserCreateDto userCreateDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Регистрация");
-            return "user/create";
+            return "panel/user/create";
         }
         userService.registerNewUserAccount(userCreateDto);
-        return "redirect:/user/";
+        return "redirect:/panel/user/";
     }
 
     @GetMapping("/update/{id}")
@@ -66,16 +66,16 @@ public class UserController {
         User user = userService.getOneById(id);
         model.addAttribute("title", "Обновление пользователя: " + user.getEmail());
         model.addAttribute("userCreateDto", new UserCreateDto(user.getId(), user.getEmail(), "", user.getRoleId()));
-        return "user/create";
+        return "panel/user/create";
     }
 
     @PostMapping("/update/{id}")
     public String postUpdate(@PathVariable Long id, @ModelAttribute @Valid UserCreateDto userCreateDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Обновление пользователя: " + userCreateDto.getEmail());
-            return "user/create";
+            return "panel/user/create";
         }
         userService.updateById(id, userCreateDto);
-        return "redirect:/user/";
+        return "redirect:/panel/user/";
     }
 }

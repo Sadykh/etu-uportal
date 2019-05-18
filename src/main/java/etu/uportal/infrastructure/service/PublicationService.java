@@ -70,7 +70,10 @@ public class PublicationService {
             result = result.concat(". ");
             result = result.concat(", ");
         }
-        return result.substring(0, result.length() - 2);
+        if (result.length() > 3) {
+            result = result.substring(0, result.length() - 2);
+        }
+        return result;
     }
 
 }

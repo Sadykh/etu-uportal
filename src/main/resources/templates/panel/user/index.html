@@ -17,28 +17,28 @@
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Имя</th>
-                    <th scope="col">Фамилия</th>
-                    <th scope="col">Отчество</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Роль</th>
                     <th scope="col">Дата регистрация</th>
-                    <th scope="col" class="text-right" width="100">Действия</th>
+                    <th scope="col" class="text-right" width="280">Действия</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="author, rowStat: ${authors.content}">
-                    <th scope="row" th:text="${author.id}">count</th>
-                    <td th:text="${author.firstName}">firstName</td>
-                    <td th:text="${author.lastName}">lastName</td>
-                    <td th:text="${author.middleName}">middleName</td>
+                <tr th:each="user: ${users.content}">
+                    <td th:text="${user.id}">id</td>
+                    <td th:text="${user.email}">email</td>
+                    <td th:text="${roles[user.roleId]}">role</td>
                     <td>10.01.2019</td>
                     <td class="btn-group">
-                        <a th:href="@{/author/update/{id}(id=${author.id})}" href="#" class="btn btn-sm btn-primary">Отредактировать</a>
+                        <a th:href="@{/panel/user/update/{id}(id=${user.id})}" href="#" class="btn btn-sm btn-primary">Отредактировать</a>
+                        <a th:href="@{/panel/user/block/{id}(id=${user.id})}" href="#" class="btn btn-sm btn-danger">Заблокировать</a>
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <div th:replace="~{fragments/pagination :: dataBind(totalPages = ${authors.totalPages}, currentNumber = ${authors.number}, baseUrl = '/author/')}"></div>
+
+            <div th:replace="~{fragments/pagination :: dataBind(totalPages = ${users.totalPages}, currentNumber = ${users.number}, baseUrl = '/panel/user/')}"></div>
         </main>
     </div>
 </div>

@@ -1,4 +1,4 @@
-package etu.uportal.web.controller;
+package etu.uportal.web.controller.panel;
 
 import etu.uportal.domain.Author;
 import etu.uportal.infrastructure.service.AuthorService;
@@ -17,13 +17,13 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("author")
-public class AuthorController {
+@RequestMapping("/panel/author")
+public class AuthorPanelController {
 
     @Autowired
     private AuthorService authorService;
 
-    private static final Logger log = LoggerFactory.getLogger(AuthorController.class);
+    private static final Logger log = LoggerFactory.getLogger(AuthorPanelController.class);
 
 
     @RequestMapping("/")
@@ -35,13 +35,13 @@ public class AuthorController {
         Page<Author> authors = authorService.getAll(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("authors", authors);
         model.addAttribute("title", "Список авторов");
-        return "author/index";
+        return "panel/author/index";
     }
 
     @GetMapping("/create")
     public String getCreate(AuthorCreateDto authorCreateDto, Model model) {
         model.addAttribute("title", "Добавление автора");
-        return "author/create";
+        return "panel/author/create";
     }
 
 
@@ -49,10 +49,10 @@ public class AuthorController {
     public String postCreate(@ModelAttribute @Valid AuthorCreateDto authorCreateDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Добавление автора");
-            return "author/create";
+            return "panel/author/create";
         }
         authorService.create(authorCreateDto);
-        return "redirect:/author/";
+        return "redirect:/panel/author/";
     }
 
     @GetMapping("/update/{id}")
@@ -62,17 +62,17 @@ public class AuthorController {
         model.addAttribute("authorCreateDto", new AuthorCreateDto(author.getId(), author.getFirstName(),
                 author.getLastName(), author.getMiddleName(), author.getFirstNameEn(), author.getLastNameEn(),
                 author.getMiddleNameEn()));
-        return "author/create";
+        return "panel/author/create";
     }
 
     @PostMapping("/update/{id}")
     public String postUpdate(@PathVariable Long id, @ModelAttribute @Valid AuthorCreateDto authorCreateDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Обновление автора: " + authorCreateDto.getLastName());
-            return "author/create";
+            return "panel/author/create";
         }
         authorService.updateById(id, authorCreateDto);
-        return "redirect:/author/";
+        return "redirect:/panel/author/";
     }
 
 }

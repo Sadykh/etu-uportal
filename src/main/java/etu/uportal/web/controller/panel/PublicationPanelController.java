@@ -1,6 +1,8 @@
-package etu.uportal.web.controller;
+package etu.uportal.web.controller.panel;
 
+import etu.uportal.domain.Author;
 import etu.uportal.domain.publication.Publication;
+import etu.uportal.domain.publication.PublicationAuthor;
 import etu.uportal.infrastructure.service.AuthorService;
 import etu.uportal.infrastructure.service.PublicationService;
 import etu.uportal.web.dto.publication.PublicationCreateDto;
@@ -14,14 +16,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 
 @Controller
-@RequestMapping("publication")
-public class PublicationController {
+@RequestMapping("panel/publication")
+public class PublicationPanelController {
 
     @Autowired
     private PublicationService publicationService;
@@ -43,6 +46,23 @@ public class PublicationController {
         model.addAttribute("publications", publications);
         model.addAttribute("publicationsList", publicationListSingleDtos);
         model.addAttribute("title", "Список публикаций");
-        return "publication/index";
+        return "panel/publication/index";
+    }
+
+    @GetMapping("/create")
+    public String getCreate(PublicationCreateDto publicationCreateDto, Model model) {
+        model.addAttribute("title", "Добавление публикации");
+        model.addAttribute("authorList", authorService.getAll(PageRequest.of(0, 20)));
+        return "panel/publication/create";
+    }
+
+    @PostMapping("/create")
+    public String postCreate(@ModelAttribute @Valid PublicationCreateDto publicationCreateDto, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("title", "Добавление публикации");
+            return "panel/publication/create";
+        }
+        publicationService.create(publicationCreateDto);
+        return "redirect:/panel/publication/";
     }
 }
