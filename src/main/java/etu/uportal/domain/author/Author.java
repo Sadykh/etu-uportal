@@ -1,4 +1,4 @@
-package etu.uportal.domain;
+package etu.uportal.domain.author;
 
 import etu.uportal.domain.publication.PublicationAuthor;
 import io.swagger.annotations.ApiModelProperty;

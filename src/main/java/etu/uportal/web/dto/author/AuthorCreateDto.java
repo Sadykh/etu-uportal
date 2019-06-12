@@ -1,6 +1,6 @@
 package etu.uportal.web.dto.author;
 
-import etu.uportal.domain.AuthorField;
+import etu.uportal.domain.author.AuthorField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

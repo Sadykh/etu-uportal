@@ -1,7 +1,7 @@
 package etu.uportal.infrastructure.service;
 
 import etu.uportal.Application;
-import etu.uportal.domain.Author;
+import etu.uportal.domain.author.Author;
 import etu.uportal.domain.publication.Publication;
 import etu.uportal.domain.publication.PublicationAuthor;
 import etu.uportal.infrastructure.repository.PublicationAuthorRepository;

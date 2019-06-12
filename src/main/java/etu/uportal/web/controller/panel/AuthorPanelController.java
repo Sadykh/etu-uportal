@@ -1,6 +1,6 @@
 package etu.uportal.web.controller.panel;
 
-import etu.uportal.domain.Author;
+import etu.uportal.domain.author.Author;
 import etu.uportal.infrastructure.service.AuthorService;
 import etu.uportal.web.dto.author.AuthorCreateDto;
 import org.slf4j.Logger;

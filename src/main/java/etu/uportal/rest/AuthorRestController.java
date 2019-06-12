@@ -1,6 +1,6 @@
 package etu.uportal.rest;
 
-import etu.uportal.domain.Author;
+import etu.uportal.domain.author.Author;
 import etu.uportal.infrastructure.service.AuthorService;
 import etu.uportal.spring.OffsetLimitPageable;
 import etu.uportal.web.dto.author.AuthorCreateDto;

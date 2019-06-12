@@ -1,8 +1,6 @@
 package etu.uportal.web.controller.panel;
 
-import etu.uportal.domain.Author;
 import etu.uportal.domain.publication.Publication;
-import etu.uportal.domain.publication.PublicationAuthor;
 import etu.uportal.infrastructure.service.AuthorService;
 import etu.uportal.infrastructure.service.PublicationService;
 import etu.uportal.web.dto.publication.PublicationCreateDto;
@@ -16,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

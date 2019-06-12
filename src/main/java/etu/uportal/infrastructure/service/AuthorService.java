@@ -1,10 +1,10 @@
 package etu.uportal.infrastructure.service;
 
 import etu.uportal.Application;
-import etu.uportal.domain.Author;
-import etu.uportal.domain.AuthorField;
-import etu.uportal.infrastructure.repository.AuthorFieldRepository;
-import etu.uportal.infrastructure.repository.AuthorRepository;
+import etu.uportal.domain.author.Author;
+import etu.uportal.domain.author.AuthorField;
+import etu.uportal.infrastructure.repository.author.AuthorFieldRepository;
+import etu.uportal.infrastructure.repository.author.AuthorRepository;
 import etu.uportal.web.dto.author.AuthorCreateDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package etu.uportal.domain;
+package etu.uportal.domain.author;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

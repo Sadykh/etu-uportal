@@ -1,6 +1,6 @@
 package etu.uportal.domain.publication;
 
-import etu.uportal.domain.Author;
+import etu.uportal.domain.author.Author;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
