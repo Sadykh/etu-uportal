@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 
+@Repository
 public interface AuthorFieldRepository extends JpaRepository<AuthorField, Long> {
 
     @Transactional
