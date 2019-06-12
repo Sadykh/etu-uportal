@@ -57,6 +57,7 @@ public class Author {
     @OneToMany(mappedBy = "id.author", cascade = CascadeType.ALL)
     private Set<PublicationAuthor> authorPublications = new HashSet<>(0);
 
+    @ApiModelProperty(value = "Дополнительные поля автора")
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<AuthorField> authorFields = new ArrayList<>();
 

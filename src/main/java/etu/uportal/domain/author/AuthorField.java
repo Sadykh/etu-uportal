@@ -19,17 +19,17 @@ public class AuthorField {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ApiModelProperty(value = "Имя автора на русском языке", example = "Василий")
+    @ApiModelProperty(value = "Какому автору принадлежит", example = "Василий")
     @ManyToOne()
     @JoinColumn(name = "author_id", nullable = false)
     private Author author;
 
     @Column(nullable = false)
-    @ApiModelProperty(value = "Фамилия автора на русском языке", example = "Пупкин")
+    @ApiModelProperty(value = "Название кастомного поля", example = "Телефон", required = true)
     private String name;
 
     @Column(nullable = false)
-    @ApiModelProperty(value = "Отчество автора на русском языке", example = "Пупкинович")
+    @ApiModelProperty(value = "Значение кастомного поля", example = "+7 911 111 12 12", required = true)
     private String value;
 
     @ApiModelProperty(value = "unixtime времени создания сущности", example = "1552714294")
