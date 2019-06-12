@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class SiteController {
 
-    @RequestMapping("*")
+    @RequestMapping("/")
     public String index() {
         return "redirect:/publication/";
 
