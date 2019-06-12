@@ -18,6 +18,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form method="post" th:object="${authorCreateDto}">
+                        <h4>Основные данные</h4>
                         <div class="row">
                             <div class="col-md-6">
                                 <div th:replace="~{fragments/form/_inputText.html :: formField(
@@ -54,7 +55,53 @@
                                 )}"></div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Отправить</button>
+                        <h4>Настраиваемые поля</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" style="display:block; width: 100%;margin-bottom: 20px"
+                                        class="btn btn-primary">Добавить еще одно поле
+                                </button>
+                            </div>
+                        </div>
+
+                        <h4>Файлы</h4>
+                        <ol>
+                            <li style="margin-bottom: 5px">Дипломная_работа.docx <a href="#"
+                                                                                    class="btn btn-sm btn-danger">Удалить</a>
+                            </li>
+                            <li>Курсовая_работа.pdf <a href="#" class="btn btn-sm btn-danger">Удалить</a></li>
+                        </ol>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" style="display:block; width: 100%;" class="btn btn-primary">Добавить
+                                    еще один файл
+                                </button>
+                            </div>
+                        </div>
+
+                        <button type="submit" style="margin-top: 20px; display: block; width: 100%;" class="btn btn-success">Отправить</button>
+
+
                     </form>
                 </div>
             </div>

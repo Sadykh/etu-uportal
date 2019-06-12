@@ -21,6 +21,7 @@
                     <th scope="col">Email</th>
                     <th scope="col">Роль</th>
                     <th scope="col">Дата регистрация</th>
+                    <th scope="col">Статус</th>
                     <th scope="col" class="text-right" width="280">Действия</th>
                 </tr>
                 </thead>
@@ -28,8 +29,9 @@
                 <tr th:each="user: ${users.content}">
                     <td th:text="${user.id}">id</td>
                     <td th:text="${user.email}">email</td>
-                    <td th:text="${roles[user.roleId]}">role</td>
+                    <td th:text="${roles[user.roleId]}">role
                     <td>10.01.2019</td>
+                    <td>Активен</td>
                     <td class="btn-group">
                         <a th:href="@{/panel/user/update/{id}(id=${user.id})}" href="#" class="btn btn-sm btn-primary">Отредактировать</a>
                         <a th:href="@{/panel/user/block/{id}(id=${user.id})}" href="#" class="btn btn-sm btn-danger">Заблокировать</a>

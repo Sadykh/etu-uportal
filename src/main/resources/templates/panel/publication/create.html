@@ -19,15 +19,21 @@
                 <div class="col-md-6">
                     <form method="post" th:object="${publicationCreateDto}">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div th:replace="~{fragments/form/_inputText.html :: formField(
-                                    field = 'title', label = 'Название', type='text', required = 'true'
+                                    field = 'title', label = 'Заголовок', type='text', required = 'true'
                                 )}"></div>
                             </div>
                             <div class="col-md-6">
                                 <div th:replace="~{fragments/form/_inputText.html :: formField(
-                                    field = 'introText', label = 'Описание', type='text', required = 'true'
+                                    field = 'introText', label = 'Дата публикации', type='text', required = 'true'
                                 )}"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="language_id">Язык публикации</label>
+                                <select id="language_id" name="language_id" class="custom-select">
+                                    <option  selected>Русский</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">
@@ -65,6 +71,35 @@
                                 </table>
                             </div>
                         </div>
+                        <h4>Настраиваемые поля</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" style="display:block; width: 100%;margin-bottom: 20px"
+                                        class="btn btn-primary">Добавить еще одно поле
+                                </button>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-primary">Отправить</button>
