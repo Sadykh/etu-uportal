@@ -36,7 +36,7 @@ public class PublicationPanelController {
     public String index(Model model, @
             RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         final int currentPage = page.orElse(1);
-        final int pageSize = size.orElse(2);
+        final int pageSize = size.orElse(5);
         Page<Publication> publications = publicationService.getAll(PageRequest.of(currentPage - 1, pageSize));
         List<PublicationListSingleDto> publicationListSingleDtos = publications
                 .stream()
