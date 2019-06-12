@@ -8,7 +8,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -54,6 +56,9 @@ public class Author {
 
     @OneToMany(mappedBy = "id.author", cascade = CascadeType.ALL)
     private Set<PublicationAuthor> authorPublications = new HashSet<>(0);
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    private List<AuthorField> authorFields = new ArrayList<>();
 
     public Author(String firstName, String lastName, String middleName, String firstNameEn, String lastNameEn, String middleNameEn) {
         this.firstName = firstName;

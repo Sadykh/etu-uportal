@@ -61,7 +61,7 @@ public class AuthorPanelController {
         model.addAttribute("title", "Обновление автора: " + author.getLastName());
         model.addAttribute("authorCreateDto", new AuthorCreateDto(author.getId(), author.getFirstName(),
                 author.getLastName(), author.getMiddleName(), author.getFirstNameEn(), author.getLastNameEn(),
-                author.getMiddleNameEn()));
+                author.getMiddleNameEn(), author.getAuthorFields()));
         return "panel/author/create";
     }
 

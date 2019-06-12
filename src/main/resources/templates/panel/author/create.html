@@ -56,27 +56,27 @@
                             </div>
                         </div>
                         <h4>Настраиваемые поля</h4>
+                        <div class="row" th:each="authorField, itemStat : ${authorCreateDto.authorFields}">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control"
+                                           placeholder="Введите название поля"
+                                           th:name="|authorFields[${itemStat.index}].name|"
+                                           th:value="${authorField.getName()}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control"
+                                           placeholder="Введите значение к полю слева"
+                                           th:name="|authorFields[${itemStat.index}].value|"
+                                           th:value="${authorField.getValue()}">
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input class="form-control">
-                                </div>
-                            </div>
                             <div class="col-md-12">
                                 <button type="submit" style="display:block; width: 100%;margin-bottom: 20px"
                                         class="btn btn-primary">Добавить еще одно поле
@@ -93,13 +93,17 @@
                         </ol>
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="submit" style="display:block; width: 100%;" class="btn btn-primary">Добавить
+                                <button type="submit" style="display:block; width: 100%;" class="btn btn-primary">
+                                    Добавить
                                     еще один файл
                                 </button>
                             </div>
                         </div>
 
-                        <button type="submit" style="margin-top: 20px; display: block; width: 100%;" class="btn btn-success">Отправить</button>
+                        <button type="submit" style="margin-top: 20px; display: block; width: 100%;"
+                                class="btn btn-success">
+                            Отправить
+                        </button>
 
 
                     </form>
