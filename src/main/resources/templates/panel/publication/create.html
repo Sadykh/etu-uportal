@@ -38,8 +38,8 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="authorList">Общий список авторов</label>
-                                <select id="authorList" name="authorList" class="custom-select">
+                                <label for="authorListOnly">Общий список авторов</label>
+                                <select id="authorListOnly" name="authorListOnly" class="custom-select">
                                     <option disabled>Выберите автора из списка</option>
                                     <option th:each="author: ${authorList}" th:value="${author.id}"
                                             th:attr="data-firstname=${author.firstName}, data-lastname=${author.lastName}, data-middlename=${author.middleName}"
@@ -119,7 +119,7 @@
     $(document).ready(function () {
         $(document).on('click', '#publication_author_add', function (e) {
             e.preventDefault();
-            const author = $('#authorList option:selected');
+            const author = $('#authorListOnly option:selected');
             const trLength = $('#author_table tbody tr').length;
             $('#author_table tbody').append('<tr><td><i class="fas fa-arrows-alt"></i></td><td><input type="hidden" class="authorListId" name="authorListId[' + trLength + ']" value="' + author.val()
                 + '">' + '<span class="number">' + (trLength + 1) + '</span></td><td>' + author.data('firstname') + '</td><td>' +
@@ -136,9 +136,6 @@
 
         function calculateAuthorListId() {
             $('#author_table tbody tr').each(function (index, value) {
-                console.log(index);
-                console.log(value);
-                console.log($(this));
                 $(this).find('td input').attr('name', 'authorListId[' + index + ']');
                 $(this).find('span.number').html(index + 1);
             });

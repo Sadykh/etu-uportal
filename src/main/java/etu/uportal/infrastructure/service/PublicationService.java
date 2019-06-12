@@ -69,7 +69,7 @@ public class PublicationService {
 
     private void saveAuthors(PublicationCreateDto dto, Publication publication) {
         int authorRank = 0;
-//        publicationAuthorRepository.deleteTest(publication.getId());
+        publicationAuthorRepository.deleteByIdPublicationId(publication.getId());
         for (Integer authorId : dto.getAuthorListId()) {
             Author author = authorService.getOneById(authorId);
             PublicationAuthor publicationAuthor = new PublicationAuthor();

@@ -30,9 +30,9 @@ public class Application extends SpringBootServletInitializer {
     @Bean
     public CommandLineRunner demo() {
         return (args) -> {
-            userService.registerNewUserAccount(new UserCreateDto("admin@etu.ru", "H123sadasd", 1));
-            userService.registerNewUserAccount(new UserCreateDto("tester@etu.ru", "Hsasdasadasd", 2));
-            userService.registerNewUserAccount(new UserCreateDto("guest@etu.ru", "H12321sadasd", 3));
+//            userService.registerNewUserAccount(new UserCreateDto("admin@etu.ru", "H123sadasd", 1));
+//            userService.registerNewUserAccount(new UserCreateDto("tester@etu.ru", "Hsasdasadasd", 2));
+//            userService.registerNewUserAccount(new UserCreateDto("guest@etu.ru", "H12321sadasd", 3));
 
             log.info("get all users:");
             log.info("-------------------------------");

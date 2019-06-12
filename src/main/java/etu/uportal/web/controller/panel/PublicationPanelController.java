@@ -90,6 +90,7 @@ public class PublicationPanelController {
     @PostMapping("/update/{id}")
     public String postUpdate(@PathVariable Long id, @ModelAttribute @Valid PublicationCreateDto publicationCreateDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("authorList", authorService.getAll(PageRequest.of(0, 20)));
             model.addAttribute("title", "Обновление публикации: " + publicationCreateDto.getTitle());
             return "panel/publication/create";
         }
