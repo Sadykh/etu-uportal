@@ -41,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/js/**",
                         "/css/**",
                         "/webjars/**","/v2/api-docs/**", "/configuration/ui/**", "/swagger-resources/**",
-                        "/configuration/security/**", "/swagger-ui.html/**", "/swagger-ui.html#/**").permitAll()
+                        "/configuration/security/**", "/swagger-ui.html", "/swagger-ui.html/**", "/swagger-ui.html#/**").permitAll()
                 .and()
                 .formLogin().loginPage("/panel/user/login").successForwardUrl("/panel/user/").permitAll()
                 .and()
