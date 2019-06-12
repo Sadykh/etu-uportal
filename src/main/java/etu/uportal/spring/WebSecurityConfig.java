@@ -36,14 +36,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/user/login", "/oauth/token").permitAll()
+                .antMatchers("/panel/user/login", "/oauth/token").permitAll()
                 .antMatchers(
                         "/js/**",
                         "/css/**",
                         "/webjars/**","/v2/api-docs/**", "/configuration/ui/**", "/swagger-resources/**",
                         "/configuration/security/**", "/swagger-ui.html/**", "/swagger-ui.html#/**").permitAll()
                 .and()
-                .formLogin().loginPage("/user/login").successForwardUrl("/user/").permitAll()
+                .formLogin().loginPage("/panel/user/login").successForwardUrl("/panel/user/").permitAll()
                 .and()
                 .logout().permitAll()
                 .and()
