@@ -8,6 +8,6 @@ import javax.transaction.Transactional;
 
 public interface AuthorFieldRepository extends JpaRepository<AuthorField, Long> {
 
-    @Transactional
-    void deleteAuthorFieldsByAuthor(Author author);
+//    @Transactional
+//    void deleteAuthorFieldsByAuthor(Author author);
 }

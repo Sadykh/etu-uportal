@@ -46,7 +46,7 @@ public class AuthorService {
         author.setMiddleName(dto.getMiddleName());
         author.setMiddleNameEn(dto.getMiddleNameEn());
 
-        authorFieldRepository.deleteAuthorFieldsByAuthor(author);
+//        authorFieldRepository.deleteAuthorFieldsByAuthor(author);
         List<AuthorField> authorFields = new ArrayList<>();
         setAuthorFields(dto, author, authorFields);
         authorRepository.save(author);
