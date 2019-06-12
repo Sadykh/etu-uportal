@@ -1,5 +1,6 @@
 package etu.uportal;
 
+import etu.uportal.domain.User;
 import etu.uportal.infrastructure.service.UserService;
 import etu.uportal.web.dto.user.UserCreateDto;
 import org.slf4j.Logger;
@@ -11,6 +12,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication
@@ -30,9 +33,13 @@ public class Application extends SpringBootServletInitializer {
     @Bean
     public CommandLineRunner demo() {
         return (args) -> {
-//            userService.registerNewUserAccount(new UserCreateDto("admin@etu.ru", "H123sadasd", 1));
-//            userService.registerNewUserAccount(new UserCreateDto("tester@etu.ru", "Hsasdasadasd", 2));
-//            userService.registerNewUserAccount(new UserCreateDto("guest@etu.ru", "H12321sadasd", 3));
+            Page<User> userList = userService.getAll(PageRequest.of(0, 10));
+            if (userList.getTotalElements() < 1) {
+                userService.registerNewUserAccount(new UserCreateDto("admin@etu.ru", "H123sadasd", 1));
+                userService.registerNewUserAccount(new UserCreateDto("tester@etu.ru", "Hsasdasadasd", 2));
+                userService.registerNewUserAccount(new UserCreateDto("guest@etu.ru", "H12321sadasd", 3));
+            }
+
 
             log.info("get all users:");
             log.info("-------------------------------");
