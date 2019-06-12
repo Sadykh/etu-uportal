@@ -35,4 +35,11 @@ public class PublicationRestController {
     public PublicationCreateDto addPublication(@RequestBody @Valid PublicationCreateDto publicationCreateDto) {
         return publicationService.create(publicationCreateDto);
     }
+
+    @ApiOperation(value = "Обновление публикации")
+    @PreAuthorize("permitAll()")
+    @PostMapping("/{id}")
+    public PublicationCreateDto updatePublication(@PathVariable Long id, @RequestBody @Valid PublicationCreateDto publicationCreateDto) {
+        return publicationService.updateById(id, publicationCreateDto);
+    }
 }

@@ -4,7 +4,9 @@ import etu.uportal.Application;
 import etu.uportal.domain.author.Author;
 import etu.uportal.domain.publication.Publication;
 import etu.uportal.domain.publication.PublicationAuthor;
+import etu.uportal.domain.publication.PublicationField;
 import etu.uportal.infrastructure.repository.PublicationAuthorRepository;
+import etu.uportal.infrastructure.repository.PublicationFieldRepository;
 import etu.uportal.infrastructure.repository.PublicationRepository;
 import etu.uportal.web.dto.publication.PublicationCreateDto;
 import org.slf4j.Logger;
@@ -24,6 +26,8 @@ public class PublicationService {
     @Autowired
     private PublicationRepository publicationRepository;
 
+    @Autowired
+    private PublicationFieldRepository publicationFieldRepository;
 
     @Autowired
     private PublicationAuthorRepository publicationAuthorRepository;
@@ -31,11 +35,41 @@ public class PublicationService {
     @Autowired
     private AuthorService authorService;
 
+    private void setPublicationFields(PublicationCreateDto dto, Publication publication) {
+        List<PublicationField> publicationFields = new ArrayList<>();
+        dto.getPublicationFields().forEach(item -> {
+            publicationFields.add(new PublicationField(publication, item.getName(), item.getValue()));
+        });
+        publication.setPublicationFields(publicationFields);
+    }
+
     public PublicationCreateDto create(final PublicationCreateDto dto) {
         final Publication publication = new Publication(dto.getTitle(), dto.getIntroText(), dto.getPublishedAt());
+        setPublicationFields(dto, publication);
         publicationRepository.save(publication);
 
+        saveAuthors(dto, publication);
+
+        return new PublicationCreateDto(publication.getId(), publication.getTitle(), publication.getIntroText(), publication.getPublishedAt());
+    }
+
+    public PublicationCreateDto updateById(final long id, final PublicationCreateDto dto) {
+        final Publication publication = publicationRepository.getOne(id);
+        publication.setTitle(dto.getTitle());
+        publication.setIntroText(dto.getIntroText());
+        publication.setPublishedAt(dto.getPublishedAt());
+        publicationFieldRepository.deletePublicationFieldsByPublication(publication);
+        setPublicationFields(dto, publication);
+        publicationRepository.save(publication);
+
+        saveAuthors(dto, publication);
+
+        return dto;
+    }
+
+    private void saveAuthors(PublicationCreateDto dto, Publication publication) {
         int authorRank = 0;
+//        publicationAuthorRepository.deleteTest(publication.getId());
         for (Integer authorId : dto.getAuthorListId()) {
             Author author = authorService.getOneById(authorId);
             PublicationAuthor publicationAuthor = new PublicationAuthor();
@@ -44,8 +78,6 @@ public class PublicationService {
             publicationAuthor.setRank(authorRank++);
             publicationAuthorRepository.save(publicationAuthor);
         }
-
-        return new PublicationCreateDto(publication.getId(), publication.getTitle(), publication.getIntroText(), publication.getPublishedAt());
     }
 
     public Page<Publication> getAll(PageRequest pageRequest) {
@@ -75,5 +107,10 @@ public class PublicationService {
         }
         return result;
     }
+
+    public Publication getOneById(long id) {
+        return publicationRepository.getOne(id);
+    }
+
 
 }

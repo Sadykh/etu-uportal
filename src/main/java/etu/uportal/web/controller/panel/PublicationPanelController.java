@@ -4,6 +4,7 @@ import etu.uportal.domain.publication.Publication;
 import etu.uportal.infrastructure.service.AuthorService;
 import etu.uportal.infrastructure.service.PublicationService;
 import etu.uportal.web.dto.publication.PublicationCreateDto;
+import etu.uportal.web.dto.publication.PublicationFieldDto;
 import etu.uportal.web.dto.publication.PublicationListSingleDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -49,6 +51,11 @@ public class PublicationPanelController {
     @GetMapping("/create")
     public String getCreate(PublicationCreateDto publicationCreateDto, Model model) {
         model.addAttribute("title", "Добавление публикации");
+        List<PublicationFieldDto> publicationFieldDto = new ArrayList<>();
+        publicationFieldDto.add(new PublicationFieldDto());
+        publicationFieldDto.add(new PublicationFieldDto());
+        publicationFieldDto.add(new PublicationFieldDto());
+        publicationCreateDto.setPublicationFields(publicationFieldDto);
         model.addAttribute("authorList", authorService.getAll(PageRequest.of(0, 20)));
         return "panel/publication/create";
     }
@@ -62,4 +69,32 @@ public class PublicationPanelController {
         publicationService.create(publicationCreateDto);
         return "redirect:/panel/publication/";
     }
+
+    @GetMapping("/update/{id}")
+    public String getUpdate(Model model, @PathVariable Long id) {
+        Publication publication = publicationService.getOneById(id);
+        model.addAttribute("title", "Обновление публикации: " + publication.getTitle());
+        model.addAttribute("authorList", authorService.getAll(PageRequest.of(0, 20)));
+        model.addAttribute("publicationCreateDto",
+                new PublicationCreateDto(
+                        publication.getId(),
+                        publication.getTitle(),
+                        publication.getIntroText(),
+                        publication.getPublicationFields(),
+                        publication.getPublicationAuthors()
+                )
+        );
+        return "panel/publication/create";
+    }
+
+    @PostMapping("/update/{id}")
+    public String postUpdate(@PathVariable Long id, @ModelAttribute @Valid PublicationCreateDto publicationCreateDto, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("title", "Обновление публикации: " + publicationCreateDto.getTitle());
+            return "panel/publication/create";
+        }
+        publicationService.updateById(id, publicationCreateDto);
+        return "redirect:/panel/publication/";
+    }
+
 }

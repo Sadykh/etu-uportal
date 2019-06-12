@@ -32,7 +32,7 @@
                             <div class="col-md-6">
                                 <label for="language_id">Язык публикации</label>
                                 <select id="language_id" name="language_id" class="custom-select">
-                                    <option  selected>Русский</option>
+                                    <option selected>Русский</option>
                                 </select>
                             </div>
                         </div>
@@ -67,38 +67,41 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <tr th:each="author, itemStat : ${publicationCreateDto.authorList}">
+                                        <td><i class="fas fa-arrows-alt"></i></td>
+                                        <td><input type="hidden" class="authorListId" th:name="|authorListId[${itemStat.index}]|" th:value="${author.id}"><span
+                                                class="number" th:text="${itemStat.index + 1}"></span></td>
+                                        <td th:text="${author.firstName}"></td>
+                                        <td th:text="${author.lastName}"></td>
+                                        <td th:text="${author.middleName}"></td>
+                                        <td><a href="#" class="btn btn-sm btn-danger"
+                                               id="author_table_remove">Удалить</a></td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <h4>Настраиваемые поля</h4>
-                        <div class="row">
+                        <div class="row"
+                             th:each="publicationField, itemStat : ${publicationCreateDto.publicationFields}">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input class="form-control">
+                                    <input class="form-control"
+                                           placeholder="Введите название поля"
+                                           th:name="|publicationFields[${itemStat.index}].name|"
+                                           th:value="${publicationField.getName()}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input class="form-control">
+                                    <input class="form-control"
+                                           placeholder="Введите значение к полю слева"
+                                           th:name="|publicationFields[${itemStat.index}].value|"
+                                           th:value="${publicationField.getValue()}">
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <button type="submit" style="display:block; width: 100%;margin-bottom: 20px"
-                                        class="btn btn-primary">Добавить еще одно поле
-                                </button>
                             </div>
                         </div>
+
 
                         <div class="row">
                             <div class="col-md-12">
@@ -170,6 +173,7 @@
     #author_table {
         margin: 20px 0;
     }
+
     #author_table tbody tr {
         cursor: move;
     }

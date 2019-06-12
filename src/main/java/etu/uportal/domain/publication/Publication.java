@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -40,6 +42,10 @@ public class Publication {
 
     @OneToMany(mappedBy = "id.publication", cascade = CascadeType.ALL)
     private Set<PublicationAuthor> publicationAuthors;
+
+    @ApiModelProperty(value = "Дополнительные поля публикации")
+    @OneToMany(mappedBy = "publication", cascade = CascadeType.ALL)
+    private List<PublicationField> publicationFields = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {
