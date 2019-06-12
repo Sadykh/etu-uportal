@@ -62,12 +62,12 @@ public class PublicationService {
 
         for (PublicationAuthor publicationAuthor : sortedList) {
             Author author = publicationAuthor.getAuthor();
-            result = result.concat(author.getLastName());
             result = result.concat(" ");
             result = result.concat(author.getFirstName().substring(0, 1));
             result = result.concat(". ");
             result = result.concat(author.getMiddleName().substring(0, 1));
             result = result.concat(". ");
+            result = result.concat(author.getLastName());
             result = result.concat(", ");
         }
         if (result.length() > 3) {
