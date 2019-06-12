@@ -3,6 +3,7 @@ package etu.uportal.web.dto.publication;
 import etu.uportal.domain.author.Author;
 import etu.uportal.domain.publication.PublicationAuthor;
 import etu.uportal.domain.publication.PublicationField;
+import etu.uportal.web.dto.author.AuthorCreateDto;
 import etu.uportal.web.dto.author.AuthorFieldDto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -39,7 +40,7 @@ public class PublicationCreateDto {
     private long publishedAt;
 
     private ArrayList<Integer> authorListId = new ArrayList<>();
-    private ArrayList<Author> authorList = new ArrayList<>();
+    private ArrayList<AuthorCreateDto> authorList = new ArrayList<>();
 
     private List<PublicationFieldDto> publicationFields = new ArrayList<>();
 
@@ -71,7 +72,8 @@ public class PublicationCreateDto {
         sortedList.sort(Comparator.comparing(PublicationAuthor::getRank));
 
         sortedList.forEach(item -> {
-            this.authorList.add(item.getAuthor());
+            Author author = item.getAuthor();
+            this.authorList.add(new AuthorCreateDto(author.getId(), author.getFirstName(), author.getLastName(), author.getMiddleName(), author.getFirstNameEn(), author.getLastNameEn(), author.getMiddleNameEn()));
         });
     }
 
