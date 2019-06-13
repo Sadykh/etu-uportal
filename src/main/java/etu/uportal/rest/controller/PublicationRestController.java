@@ -1,4 +1,4 @@
-package etu.uportal.rest;
+package etu.uportal.rest.controller;
 
 import etu.uportal.domain.publication.Publication;
 import etu.uportal.infrastructure.service.PublicationService;

@@ -1,4 +1,4 @@
-package etu.uportal.rest;
+package etu.uportal.rest.controller;
 
 import etu.uportal.domain.User;
 import etu.uportal.infrastructure.service.UserService;
