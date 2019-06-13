@@ -116,5 +116,12 @@ public class PublicationService {
         return publicationAuthorRepository.countByIdAuthorId(author.getId());
     }
 
+    public List<Publication> getPublicationsByAuthor(Author author) {
+        List<PublicationAuthor> publicationAuthors = publicationAuthorRepository.findAllByIdAuthorId(author.getId());
+        List<Publication> result = new ArrayList<>();
+        publicationAuthors.forEach(item -> result.add(item.getId().getPublication()));
+        return result;
+    }
+
 
 }

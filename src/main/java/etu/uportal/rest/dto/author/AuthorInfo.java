@@ -1,4 +1,4 @@
-package etu.uportal.rest.dto;
+package etu.uportal.rest.dto.author;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

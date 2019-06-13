@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Repository
 public interface PublicationAuthorRepository extends JpaRepository<PublicationAuthor, PublicationAuthorId> {
@@ -16,4 +18,7 @@ public interface PublicationAuthorRepository extends JpaRepository<PublicationAu
 
     @Transactional
     int countByIdAuthorId(long authorId);
+
+    @Transactional
+    List<PublicationAuthor> findAllByIdAuthorId(long authorId);
 }

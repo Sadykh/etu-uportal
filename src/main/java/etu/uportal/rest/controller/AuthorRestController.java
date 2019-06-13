@@ -3,7 +3,8 @@ package etu.uportal.rest.controller;
 import etu.uportal.domain.author.Author;
 import etu.uportal.infrastructure.service.AuthorService;
 import etu.uportal.infrastructure.service.PublicationService;
-import etu.uportal.rest.dto.AuthorInfo;
+import etu.uportal.rest.dto.author.AuthorInfo;
+import etu.uportal.rest.dto.author.AuthorView;
 import etu.uportal.spring.OffsetLimitPageable;
 import etu.uportal.web.dto.author.AuthorCreateDto;
 import io.swagger.annotations.Api;
@@ -40,6 +41,17 @@ public class AuthorRestController {
             result.add(new AuthorInfo(item.getId(), item.getFirstName(), item.getLastName(), item.getMiddleName(), item.getFirstNameEn(), item.getLastNameEn(), item.getMiddleNameEn(), publicationService.getQtyPublicationsByAuthor(item)));
         });
         return new PageImpl<>(result);
+    }
+
+    @ApiOperation(value = "Получить информацию по автору")
+    @PreAuthorize("permitAll()")
+    @GetMapping("/{id}")
+    public AuthorView getAuthor(@PathVariable Long id) {
+        Author item = authorService.getOneById(id);
+        AuthorView result = new AuthorView(item.getId(), item.getFirstName(), item.getLastName(), item.getMiddleName(), item.getFirstNameEn(), item.getLastNameEn(), item.getMiddleNameEn(), publicationService.getQtyPublicationsByAuthor(item));
+        result.setAuthorFields(item.getAuthorFields());
+        result.setPublications(publicationService.getPublicationsByAuthor(item));
+        return result;
     }
 
     @ApiOperation(value = "Добавить нового автора")
