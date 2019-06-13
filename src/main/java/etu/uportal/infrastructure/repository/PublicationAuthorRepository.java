@@ -13,4 +13,7 @@ public interface PublicationAuthorRepository extends JpaRepository<PublicationAu
 
     @Transactional
     void deleteByIdPublicationId(long publicationId);
+
+    @Transactional
+    int countByIdAuthorId(long authorId);
 }

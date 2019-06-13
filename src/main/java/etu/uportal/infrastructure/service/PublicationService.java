@@ -112,5 +112,9 @@ public class PublicationService {
         return publicationRepository.getOne(id);
     }
 
+    public int getQtyPublicationsByAuthor(Author author) {
+        return publicationAuthorRepository.countByIdAuthorId(author.getId());
+    }
+
 
 }
