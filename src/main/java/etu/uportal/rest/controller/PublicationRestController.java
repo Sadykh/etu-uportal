@@ -50,4 +50,14 @@ public class PublicationRestController {
     public PublicationCreateDto updatePublication(@PathVariable Long id, @RequestBody @Valid PublicationCreateDto publicationCreateDto) {
         return publicationService.updateById(id, publicationCreateDto);
     }
+
+    @ApiOperation(value = "Поиск публикаций по названию")
+    @PreAuthorize("permitAll()")
+    @GetMapping("/search")
+    public Page<PublicationCreateDto> searchByTitle(@RequestParam("query") String query) {
+        List<Publication> items = publicationService.findByTitle(query);
+        List<PublicationCreateDto> result = new ArrayList<>();
+        items.forEach(item -> result.add(new PublicationCreateDto(item.getId(), item.getTitle(), item.getIntroText(), item.getPublicationFields(), item.getPublicationAuthors())));
+        return new PageImpl<>(result);
+    }
 }

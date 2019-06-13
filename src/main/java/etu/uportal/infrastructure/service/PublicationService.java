@@ -123,5 +123,9 @@ public class PublicationService {
         return result;
     }
 
+    public List<Publication> findByTitle(String title) {
+        return publicationRepository.findByTitleContaining(title);
+    }
+
 
 }
