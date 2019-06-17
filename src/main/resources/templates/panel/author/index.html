@@ -37,6 +37,7 @@
                     <td>10.01.2019</td>
                     <td class="btn-group">
                         <a th:href="@{/panel/author/update/{id}(id=${author.id})}" href="#" class="btn btn-sm btn-primary">Отредактировать</a>
+                        <a th:if="${qtyPublicationsByAuthor[author.id] == 0}" th:href="@{/panel/author/delete/{id}(id=${author.id})}" href="#" class="btn btn-sm btn-danger">Удалить</a>
                     </td>
                 </tr>
                 </tbody>

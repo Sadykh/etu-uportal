@@ -2,18 +2,23 @@ package etu.uportal.web.controller.panel;
 
 import etu.uportal.domain.author.Author;
 import etu.uportal.infrastructure.service.AuthorService;
+import etu.uportal.infrastructure.service.PublicationService;
+import etu.uportal.rest.dto.author.AuthorInfo;
 import etu.uportal.web.dto.author.AuthorCreateDto;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.Optional;
 
 @Controller
@@ -22,6 +27,9 @@ public class AuthorPanelController {
 
     @Autowired
     private AuthorService authorService;
+
+    @Autowired
+    private PublicationService publicationService;
 
     private static final Logger log = LoggerFactory.getLogger(AuthorPanelController.class);
 
@@ -33,6 +41,12 @@ public class AuthorPanelController {
         final int currentPage = page.orElse(1);
         final int pageSize = size.orElse(5);
         Page<Author> authors = authorService.getAll(PageRequest.of(currentPage - 1, pageSize));
+
+        HashMap<Long, Integer> qtyPublicationsByAuthor = new HashMap<>();
+        authors.getContent().forEach(item -> {
+            qtyPublicationsByAuthor.put(item.getId(), publicationService.getQtyPublicationsByAuthor(item));
+        });
+        model.addAttribute("qtyPublicationsByAuthor", qtyPublicationsByAuthor);
         model.addAttribute("authors", authors);
         model.addAttribute("title", "Список авторов");
         return "panel/author/index";
@@ -75,4 +89,9 @@ public class AuthorPanelController {
         return "redirect:/panel/author/";
     }
 
+    @GetMapping("/delete/{id}")
+    public String deleteAuthor(@PathVariable Long id) {
+        authorService.removeAuthorById(id);
+        return "redirect:/panel/author/";
+    }
 }
