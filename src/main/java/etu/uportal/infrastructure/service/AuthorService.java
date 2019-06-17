@@ -27,6 +27,9 @@ public class AuthorService {
     @Autowired
     private AuthorFieldRepository authorFieldRepository;
 
+    @Autowired
+    private PublicationService publicationService;
+
 
     public AuthorCreateDto create(final AuthorCreateDto dto) {
         final Author author = new Author(dto.getFirstName(), dto.getLastName(), dto.getMiddleName(),
@@ -66,6 +69,14 @@ public class AuthorService {
 
     public Page<Author> getAll(PageRequest pageRequest) {
         return authorRepository.findAll(pageRequest);
+    }
+
+    public void removeAuthorById(long authorId) {
+        Author author = authorRepository.getOne(authorId);
+        int qtyPublications = publicationService.getQtyPublicationsByAuthor(author);
+        if (qtyPublications == 0) {
+            authorRepository.delete(author);
+        }
     }
 
 }

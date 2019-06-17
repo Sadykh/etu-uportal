@@ -48,6 +48,9 @@ public class AuthorView {
     @ApiModelProperty(value = "Публикации автора", required = true)
     private List<PublicationCreateDto> publications = new ArrayList<>();
 
+    @ApiModelProperty(value = "Разрешено ли удалять", example = "2", required = true)
+    private Boolean allowDelete = false;
+
     public void setAuthorFields(List<AuthorField> authorFields) {
         authorFields.forEach(item -> this.fields.add(new AuthorFieldDto(item.getName(), item.getValue())));
     }
@@ -67,5 +70,6 @@ public class AuthorView {
         this.lastNameEn = lastNameEn;
         this.middleNameEn = middleNameEn;
         this.publicationQty = publicationQty;
+        this.allowDelete = publicationQty == 0;
     }
 }

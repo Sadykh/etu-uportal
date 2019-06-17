@@ -35,6 +35,9 @@ public class AuthorInfo {
     @ApiModelProperty(value = "Количество публикаций автора", example = "2", required = true)
     private Integer publicationQty = 0;
 
+    @ApiModelProperty(value = "Разрешено ли удалять", example = "2", required = true)
+    private Boolean allowDelete = false;
+
     public AuthorInfo(long id, String firstName, String lastName, String middleName, String firstNameEn, String lastNameEn, String middleNameEn, Integer publicationQty) {
         this.id = id;
         this.firstName = firstName;
@@ -44,5 +47,6 @@ public class AuthorInfo {
         this.lastNameEn = lastNameEn;
         this.middleNameEn = middleNameEn;
         this.publicationQty = publicationQty;
+        this.allowDelete = publicationQty == 0;
     }
 }
