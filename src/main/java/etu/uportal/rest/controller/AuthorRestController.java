@@ -73,8 +73,8 @@ public class AuthorRestController {
     @ApiOperation(value = "Удаление автора")
     @PreAuthorize("permitAll()")
     @DeleteMapping("/{id}")
-    public AuthorCreateDto deleteAuthor(@PathVariable Long id) {
+    public Boolean deleteAuthor(@PathVariable Long id) {
         authorService.removeAuthorById(id);
-        return new AuthorCreateDto();
+        return true;
     }
 }

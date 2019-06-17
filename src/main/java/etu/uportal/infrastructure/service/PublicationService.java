@@ -127,5 +127,9 @@ public class PublicationService {
         return publicationRepository.findByTitleContaining(title);
     }
 
+    public void removeById(long publicationId) {
+        publicationAuthorRepository.deleteByIdPublicationId(publicationId);
+        publicationRepository.deleteById(publicationId);
+    }
 
 }

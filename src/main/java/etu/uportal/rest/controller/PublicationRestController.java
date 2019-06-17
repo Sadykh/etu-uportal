@@ -3,6 +3,7 @@ package etu.uportal.rest.controller;
 import etu.uportal.domain.publication.Publication;
 import etu.uportal.infrastructure.service.PublicationService;
 import etu.uportal.spring.OffsetLimitPageable;
+import etu.uportal.web.dto.author.AuthorCreateDto;
 import etu.uportal.web.dto.publication.PublicationCreateDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -59,5 +60,13 @@ public class PublicationRestController {
         List<PublicationCreateDto> result = new ArrayList<>();
         items.forEach(item -> result.add(new PublicationCreateDto(item.getId(), item.getTitle(), item.getIntroText(), item.getPublicationFields(), item.getPublicationAuthors())));
         return new PageImpl<>(result);
+    }
+
+    @ApiOperation(value = "Удаление публикации")
+    @PreAuthorize("permitAll()")
+    @DeleteMapping("/{id}")
+    public Boolean remote(@PathVariable Long id) {
+        publicationService.removeById(id);
+        return true;
     }
 }
