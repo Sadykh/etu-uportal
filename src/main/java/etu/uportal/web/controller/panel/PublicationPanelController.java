@@ -98,4 +98,10 @@ public class PublicationPanelController {
         return "redirect:/panel/publication/";
     }
 
+    @GetMapping("/delete/{id}")
+    public String removePublication(@PathVariable Long id) {
+        publicationService.removeById(id);
+        return "redirect:/panel/publication/";
+    }
+
 }

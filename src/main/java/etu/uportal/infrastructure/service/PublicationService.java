@@ -128,8 +128,10 @@ public class PublicationService {
     }
 
     public void removeById(long publicationId) {
-        publicationAuthorRepository.deleteByIdPublicationId(publicationId);
-        publicationRepository.deleteById(publicationId);
+        Publication publication = publicationRepository.getOne(publicationId);
+        publicationAuthorRepository.deleteByIdPublicationId(publication.getId());
+        publicationFieldRepository.deletePublicationFieldsByPublication(publication);
+        publicationRepository.deleteById(publication.getId());
     }
 
 }
