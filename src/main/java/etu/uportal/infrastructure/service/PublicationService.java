@@ -130,8 +130,12 @@ public class PublicationService {
     public void removeById(long publicationId) {
         try {
             Publication publication = publicationRepository.getOne(publicationId);
-            publicationAuthorRepository.deleteByIdPublicationId(publication.getId());
-            publicationFieldRepository.deletePublicationFieldsByPublication(publication);
+            if (publication.getPublicationAuthors().size() > 0) {
+                publicationAuthorRepository.deleteByIdPublicationId(publication.getId());
+            }
+            if (publication.getPublicationFields().size() > 0) {
+                publicationFieldRepository.deletePublicationFieldsByPublication(publication);
+            }
             publicationRepository.deleteById(publication.getId());
         } catch (Exception exception) {
             System.out.println(")))");
