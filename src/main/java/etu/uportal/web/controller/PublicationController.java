@@ -3,6 +3,7 @@ package etu.uportal.web.controller;
 import etu.uportal.domain.publication.Publication;
 import etu.uportal.infrastructure.service.AuthorService;
 import etu.uportal.infrastructure.service.PublicationService;
+import etu.uportal.rest.dto.author.AuthorView;
 import etu.uportal.web.dto.publication.PublicationCreateDto;
 import etu.uportal.web.dto.publication.PublicationListSingleDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,13 @@ public class PublicationController {
         model.addAttribute("publicationsList", publicationListSingleDtos);
         model.addAttribute("title", "Список публикаций");
         return "publication/index";
+    }
+
+    @GetMapping("/view/{id}")
+    public String getPublication(Model model, @PathVariable Long id) {
+        Publication publication = publicationService.getOneById(id);
+        model.addAttribute("publication", publication);
+        model.addAttribute("title", "Информация о публикации: " + publication.getTitle());
+        return "publication/view";
     }
 }
