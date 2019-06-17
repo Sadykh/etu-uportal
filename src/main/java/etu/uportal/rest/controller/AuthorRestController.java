@@ -74,7 +74,11 @@ public class AuthorRestController {
     @PreAuthorize("permitAll()")
     @DeleteMapping("/{id}")
     public Boolean deleteAuthor(@PathVariable Long id) {
-        authorService.removeAuthorById(id);
+        try {
+            authorService.removeAuthorById(id);
+        } catch (Exception exception) {
+            System.out.println(")))");
+        }
         return true;
     }
 }
