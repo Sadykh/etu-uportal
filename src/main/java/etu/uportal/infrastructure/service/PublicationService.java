@@ -128,10 +128,14 @@ public class PublicationService {
     }
 
     public void removeById(long publicationId) {
-        Publication publication = publicationRepository.getOne(publicationId);
-        publicationAuthorRepository.deleteByIdPublicationId(publication.getId());
-        publicationFieldRepository.deletePublicationFieldsByPublication(publication);
-        publicationRepository.deleteById(publication.getId());
+        try {
+            Publication publication = publicationRepository.getOne(publicationId);
+            publicationAuthorRepository.deleteByIdPublicationId(publication.getId());
+            publicationFieldRepository.deletePublicationFieldsByPublication(publication);
+            publicationRepository.deleteById(publication.getId());
+        } catch (Exception exception) {
+            System.out.println(")))");
+        }
     }
 
 }

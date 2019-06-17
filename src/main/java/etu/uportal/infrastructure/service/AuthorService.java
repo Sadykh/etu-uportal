@@ -3,6 +3,7 @@ package etu.uportal.infrastructure.service;
 import etu.uportal.Application;
 import etu.uportal.domain.author.Author;
 import etu.uportal.domain.author.AuthorField;
+import etu.uportal.domain.publication.Publication;
 import etu.uportal.infrastructure.repository.author.AuthorFieldRepository;
 import etu.uportal.infrastructure.repository.author.AuthorRepository;
 import etu.uportal.web.dto.author.AuthorCreateDto;
@@ -72,10 +73,14 @@ public class AuthorService {
     }
 
     public void removeAuthorById(long authorId) {
-        Author author = authorRepository.getOne(authorId);
-        int qtyPublications = publicationService.getQtyPublicationsByAuthor(author);
-        if (qtyPublications == 0) {
-            authorRepository.delete(author);
+        try {
+            Author author = authorRepository.getOne(authorId);
+            int qtyPublications = publicationService.getQtyPublicationsByAuthor(author);
+            if (qtyPublications == 0) {
+                authorRepository.delete(author);
+            }
+        } catch (Exception exception) {
+            System.out.println(")))");
         }
     }
 
