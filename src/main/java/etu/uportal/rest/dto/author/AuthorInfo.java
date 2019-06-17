@@ -1,9 +1,14 @@
 package etu.uportal.rest.dto.author;
 
+import etu.uportal.domain.author.AuthorField;
+import etu.uportal.web.dto.author.AuthorFieldDto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
@@ -38,6 +43,12 @@ public class AuthorInfo {
     @ApiModelProperty(value = "Разрешено ли удалять", example = "2", required = true)
     private Boolean allowDelete = false;
 
+    @ApiModelProperty(value = "Дополнительные поля автора", required = true)
+    private List<AuthorFieldDto> fields = new ArrayList<>();
+
+    public void setAuthorFields(List<AuthorField> authorFields) {
+        authorFields.forEach(item -> this.fields.add(new AuthorFieldDto(item.getName(), item.getValue())));
+    }
     public AuthorInfo(long id, String firstName, String lastName, String middleName, String firstNameEn, String lastNameEn, String middleNameEn, Integer publicationQty) {
         this.id = id;
         this.firstName = firstName;

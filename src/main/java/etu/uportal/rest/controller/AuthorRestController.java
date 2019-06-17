@@ -38,7 +38,9 @@ public class AuthorRestController {
         Page<Author> items = authorService.getAll(pageRequest);
         List<AuthorInfo> result = new ArrayList<>();
         items.getContent().forEach(item -> {
-            result.add(new AuthorInfo(item.getId(), item.getFirstName(), item.getLastName(), item.getMiddleName(), item.getFirstNameEn(), item.getLastNameEn(), item.getMiddleNameEn(), publicationService.getQtyPublicationsByAuthor(item)));
+            AuthorInfo authorInfo = new AuthorInfo(item.getId(), item.getFirstName(), item.getLastName(), item.getMiddleName(), item.getFirstNameEn(), item.getLastNameEn(), item.getMiddleNameEn(), publicationService.getQtyPublicationsByAuthor(item));
+            authorInfo.setAuthorFields(item.getAuthorFields());
+            result.add(authorInfo);
         });
         return new PageImpl<>(result);
     }
