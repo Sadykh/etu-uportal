@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/mvc">
+<head>
+    <title th:text="${title}"></title>
+    <div th:replace="~{fragments/head}"></div>
+</head>
+<body>
+<nav th:replace="~{fragments/nav}"></nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav th:replace="~{fragments/sidebar}"></nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2">
+                <h1 class="h2" th:text="${title}"></h1>
+            </div>
+
+            <h4 class="h4">Базовая информация</h4>
+
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Фамилия</th>
+                    <th scope="col">Отчество</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${author.firstName}">firstName</td>
+                    <td th:text="${author.lastName}">firstName</td>
+                    <td th:text="${author.lastName}">firstName</td>
+                    <td th:text="${author.middleName}">firstName</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h4 class="h4" th:if="${#lists.size(author.authorFields)}">Дополнительная информация</h4>
+            <table class="table table-striped table-hover" th:if="${#lists.size(author.authorFields)}">
+                <thead>
+                <tr>
+                    <td>#</td>
+                    <td>Название поля</td>
+                    <td>Значение</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="field, rowStat: ${author.authorFields}">
+                    <td th:text="${rowStat.index + 1}"></td>
+                    <td th:text="${field.name}"></td>
+                    <td th:text="${field.value}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h4 class="h4" th:if="${#lists.size(publications)}">Список публикаций</h4>
+            <table class="table table-striped table-hover" th:if="${#lists.size(publications)}">
+                <thead>
+                <tr>
+                    <td>#</td>
+                    <td>Название публикации</td>
+                    <td>Просмотр</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item, rowStat: ${publications}">
+                    <td th:text="${rowStat.index + 1}"></td>
+                    <td th:text="${item.title}"></td>
+                    <td>
+                        <a th:href="@{/publication/view/{id}(id=${item.id})}" href="#" class="btn btn-sm btn-primary">Посмотреть</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </main>
+    </div>
+</div>
+<div th:replace="~{fragments/beforeEndBody}"></div>
+</body>
+</html>
