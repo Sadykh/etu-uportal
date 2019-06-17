@@ -10,3 +10,10 @@ services:
       - .env
     volumes:
       - ./db:/var/lib/mysql
+  app:
+    container_name: etu_uportal_app
+    image: sadykh/etu-uportal:latest
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env

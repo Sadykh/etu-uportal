@@ -22,8 +22,9 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 bootJar {
-    baseName = 'org.etu-uportal'
-    version = '0.1.0'
+    baseName = 'etu-uportal'
+    version = null
+    classifier = null
 }
 
 sourceCompatibility = 1.8
