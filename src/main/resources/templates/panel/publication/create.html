@@ -16,8 +16,8 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6">
-                    <form method="post" th:object="${publicationCreateDto}">
+                <form method="post" th:object="${publicationCreateDto}" style="display:block; width: 100%;">
+                    <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-12">
                                 <div th:replace="~{fragments/form/_inputText.html :: formField(
@@ -69,7 +69,9 @@
                                     <tbody>
                                     <tr th:each="author, itemStat : ${publicationCreateDto.authorList}">
                                         <td><i class="fas fa-arrows-alt"></i></td>
-                                        <td><input type="hidden" class="authorListId" th:name="|authorListId[${itemStat.index}]|" th:value="${author.id}"><span
+                                        <td><input type="hidden" class="authorListId"
+                                                   th:name="|authorListId[${itemStat.index}]|"
+                                                   th:value="${author.id}"><span
                                                 class="number" th:text="${itemStat.index + 1}"></span></td>
                                         <td th:text="${author.firstName}"></td>
                                         <td th:text="${author.lastName}"></td>
@@ -81,10 +83,13 @@
                                 </table>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-12" id="custom_fields_list">
                         <h4>Настраиваемые поля</h4>
                         <div class="row"
-                             th:each="publicationField, itemStat : ${publicationCreateDto.publicationFields}">
-                            <div class="col-md-6">
+                             th:each="publicationField, itemStat : ${publicationCreateDto.publicationFields}"
+                             th:id="|field_${itemStat.index}|">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <input class="form-control"
                                            placeholder="Введите название поля"
@@ -92,7 +97,7 @@
                                            th:value="${publicationField.getName()}">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <input class="form-control"
                                            placeholder="Введите значение к полю слева"
@@ -100,19 +105,33 @@
                                            th:value="${publicationField.getValue()}">
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <a href="#" class="btn btn-sm btn-danger custom_field_remove"
+                                   th:data-id="${itemStat.index}">Удалить</a>
+                            </div>
                         </div>
+                    </div>
 
-
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button id="custom_field_add" type="submit"
+                                        style="display:block; width: 100%;margin-bottom: 20px"
+                                        class="btn btn-primary">Добавить еще одно поле
+                                </button>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-primary">Отправить</button>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
-        </main>
     </div>
+    </main>
+</div>
 </div>
 <div th:replace="~{fragments/beforeEndBody}"></div>
 <script>
@@ -155,6 +174,36 @@
         }
 
         initSortable();
+
+
+        $(document).on('click', '#custom_field_add', function (e) {
+            e.preventDefault();
+            const qtyElements = $('#custom_fields_list > .row').length;
+            $('#custom_fields_list').append('<div class="row" id="field_' + qtyElements + '"><div class="col-md-3">' +
+                '<div class="form-group"><input class="form-control" ' +
+                'placeholder="Введите название поля" name="publicationFields[' + qtyElements + '].name" value=""></div>' +
+                '</div><div class="col-md-3"> <div class="form-group"><input class="form-control" ' +
+                'placeholder="Введите значение к полю слева" name="publicationFields[' + qtyElements + '].value" value="">' +
+                '</div></div><div class="col-md-3"><a href="#" class="btn btn-sm btn-danger custom_field_remove"  ' +
+                'data-id="' + qtyElements + '">Удалить</a></div></div>');
+        });
+        $(document).on('click', '.custom_field_remove', function (e) {
+            e.preventDefault();
+            const id = $(this).attr('data-id');
+            $('#field_' + id).remove();
+            calculateFieldListId();
+        });
+
+        function calculateFieldListId() {
+            $("#custom_fields_list > .row").each(function (index) {
+                $(this).attr('id', 'field_' + index);
+                $(this).find(".custom_field_remove").attr('data-id', index);
+                var prefix = "publicationFields[" + index + "]";
+                $(this).find("input").each(function () {
+                    this.name = this.name.replace(/publicationFields\[\d+\]/, prefix);
+                });
+            });
+        }
     });
 
 

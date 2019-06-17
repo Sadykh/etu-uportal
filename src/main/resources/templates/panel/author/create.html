@@ -56,7 +56,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12" id="custom_fields_list">
                         <h4>Настраиваемые поля</h4>
                         <div class="row" th:each="authorField, itemStat : ${authorCreateDto.authorFields}"
                              th:id="|field_${itemStat.index}|">
@@ -77,7 +77,7 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <a href="#" class="btn btn-sm btn-danger" id="field_rmove"
+                                <a href="#" class="btn btn-sm btn-danger custom_field_remove"
                                    th:data-id="${itemStat.index}">Удалить</a>
                             </div>
                         </div>
@@ -87,27 +87,28 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="submit" style="display:block; width: 100%;margin-bottom: 20px"
+                                <button id="custom_field_add" type="submit"
+                                        style="display:block; width: 100%;margin-bottom: 20px"
                                         class="btn btn-primary">Добавить еще одно поле
                                 </button>
                             </div>
                         </div>
 
-<!--                        <h4>Файлы</h4>-->
-<!--                        <ol>-->
-<!--                            <li style="margin-bottom: 5px">Дипломная_работа.docx <a href="#"-->
-<!--                                                                                    class="btn btn-sm btn-danger">Удалить</a>-->
-<!--                            </li>-->
-<!--                            <li>Курсовая_работа.pdf <a href="#" class="btn btn-sm btn-danger">Удалить</a></li>-->
-<!--                        </ol>-->
-<!--                        <div class="row">-->
-<!--                            <div class="col-md-12">-->
-<!--                                <button type="submit" style="display:block; width: 100%;" class="btn btn-primary">-->
-<!--                                    Добавить-->
-<!--                                    еще один файл-->
-<!--                                </button>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <!--                        <h4>Файлы</h4>-->
+                        <!--                        <ol>-->
+                        <!--                            <li style="margin-bottom: 5px">Дипломная_работа.docx <a href="#"-->
+                        <!--                                                                                    class="btn btn-sm btn-danger">Удалить</a>-->
+                        <!--                            </li>-->
+                        <!--                            <li>Курсовая_работа.pdf <a href="#" class="btn btn-sm btn-danger">Удалить</a></li>-->
+                        <!--                        </ol>-->
+                        <!--                        <div class="row">-->
+                        <!--                            <div class="col-md-12">-->
+                        <!--                                <button type="submit" style="display:block; width: 100%;" class="btn btn-primary">-->
+                        <!--                                    Добавить-->
+                        <!--                                    еще один файл-->
+                        <!--                                </button>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
 
                         <button type="submit" style="margin-top: 20px; display: block; width: 100%;"
                                 class="btn btn-success">
@@ -123,5 +124,39 @@
     </div>
 </div>
 <div th:replace="~{fragments/beforeEndBody}"></div>
+<script>
+    $(document).ready(function () {
+        $(document).on('click', '#custom_field_add', function (e) {
+            e.preventDefault();
+            const qtyElements = $('#custom_fields_list > .row').length;
+            $('#custom_fields_list').append('<div class="row" id="field_' + qtyElements + '"><div class="col-md-3">' +
+                '<div class="form-group"><input class="form-control" ' +
+                'placeholder="Введите название поля" name="authorFields[' + qtyElements + '].name" value=""></div>' +
+                '</div><div class="col-md-3"> <div class="form-group"><input class="form-control" ' +
+                'placeholder="Введите значение к полю слева" name="authorFields[' + qtyElements + '].value" value="">' +
+                '</div></div><div class="col-md-3"><a href="#" class="btn btn-sm btn-danger custom_field_remove"  ' +
+                'data-id="' + qtyElements + '">Удалить</a></div></div>');
+        });
+        $(document).on('click', '.custom_field_remove', function (e) {
+            e.preventDefault();
+            const id = $(this).attr('data-id');
+            $('#field_' + id).remove();
+            calculateFieldListId();
+        });
+
+        function calculateFieldListId() {
+            $("#custom_fields_list > .row").each(function (index) {
+                $(this).attr('id', 'field_' + index);
+                $(this).find(".custom_field_remove").attr('data-id', index);
+                var prefix = "authorFields[" + index + "]";
+                $(this).find("input").each(function () {
+                    this.name = this.name.replace(/authorFields\[\d+\]/, prefix);
+                });
+            });
+        }
+    });
+
+
+</script>
 </body>
 </html>
